@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="3_Mux" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <TEXT POSX="24.0" POSY="38.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Serif,bold,11.0">  Mux</TEXT>
+        <POLYGON COLOR="#000000">
+            <STROKE LINEWIDTH="2.0"/>
+            <POINT POSX="15.0" POSY="10.0"/>
+            <POINT POSX="40.0" POSY="30.0"/>
+            <POINT POSX="40.0" POSY="50.0"/>
+            <POINT POSX="15.0" POSY="70.0"/>
+        </POLYGON>
+    </FORMS>
+    <IO>
+        <INPUT BITS="2" SIGNED="false" POSX="30.0" POSY="60.0" NAME="Switch">
+            <LABEL POSX="25.0" POSY="15.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="15.0" POSY="20.0" NAME="In1">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="15.0" POSY="60.0" NAME="In3">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="15.0" POSY="40.0" NAME="In2">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="40.0" POSY="40.0" NAME="Out">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="8">
+        <ACTION EVENT="INPUT_CHANGE">{
+	if (Switch == 0)
+	{
+		Out = In1;
+	}
+	
+	if (Switch == 2)
+	{
+		Out = In2;
+	}
+
+	if (Switch == 1)
+	{
+		Out = In3;
+	}
+}</ACTION>
+    </INTERNALS>
+</SIMPLE>

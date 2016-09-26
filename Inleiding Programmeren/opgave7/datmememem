@@ -1,0 +1,22 @@
+String patroon = "\\d{2}-\\d{2}-\\d{4}";
+if (tmp.matches(patroon)){
+    return true;
+}
+else {
+    return false;
+}
+
+if(this.dag.nummer > this.maand.aantalDagen || this.maand.nummer > 12){
+    return false;
+}
+if(this.dag.nummer < 1 || this.maand.nummer <1){
+    return false;
+}
+else {
+    return true;
+}
+
+
+
+                /* Schrikkeljaar heeft in de maand februari 29 dagen */
+                if(this.jaar.schrikkelJaar()){

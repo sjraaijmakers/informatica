@@ -1,0 +1,99 @@
+# -*- coding: utf-8 -*-
+#   Student:        Steven Raaijmakers
+#   Number:         10804242
+# bron: http://stackoverflow.com/questions/16856788/slice-2d-array-into-smaller-2d-arrays
+
+from math import sqrt
+import numpy as np
+
+class Sudoku():
+    def __init__(self, file):
+        self.file = file
+        self.grid = np.loadtxt(str(self.file), int)
+
+        self.length = len(self.grid)
+        self.sqrt = int(sqrt(self.length))
+
+    # Controleer sudoku op juistheid
+    def isEmpty(self):
+        for x in range(self.length): #rows
+            for y in range(self.length): #cols
+                if self.grid[x][y] == 0:
+                    return True
+                if self.grid[x][y] > self.length:
+                    return False
+        return False
+
+    # Controleer sudoku op rules
+    def isValid(self):
+        # Check cols & rows
+        for x in range(self.length):
+            cols = []
+            rows = []
+            for y in range(self.length):
+                if self.isEmpty() == False:
+                    if self.grid[x][y] in cols: # kijken of al toegevoegd
+                        return False
+                    else:
+                        cols.append(self.grid[x][y])
+
+                    if self.grid[y][x] in rows:
+                        return False
+                    else:
+                        rows.append(self.grid[y][x])
+
+        # Check block
+        # subsudoku: maakt nieuwe 1d array van sudoku sqrt * sqrt
+        subsudoku = self.grid.reshape(self.sqrt, self.sqrt, -1, self.sqrt).swapaxes(1,2).reshape(-1, self.sqrt, self.sqrt)
+        for y in range(len(self.grid)):
+            block = []
+            for x in range(self.sqrt):
+                for g in subsudoku[y][x]:
+                    if g in block:
+                        return False
+                    else:
+                        block.append(g)
+        return True
+
+def inRow(sudoku, row, num):
+    for col in range(sudoku.length):
+        if sudoku.grid[row][col] == num:
+            return True
+        else:
+            return False
+
+def inCol(sudoku, col, num):
+    for row in range(sudoku.length):
+        if sudoku.grid[row][col] == num:
+            return True
+        else:
+            return False
+
+def solve(sudoku):
+    solved = sudoku
+    if nextZero(sudoku) == False:
+        return True
+
+    for num in range(8):
+        if sudoku.isValid == True:
+            solved[row][col] = num
+
+            if solve(solved) == True:
+                return solved
+
+            solved[row][col] = 0
+    return False
+
+def nextZero(sudoku):
+    for x in range(sudoku.length):
+        for y in range(sudoku.length):
+            if sudoku.grid[x][y] == 0:
+                return x, y
+    return False
+
+
+# Controleer sudoku op juistheid
+
+if __name__=='__main__':
+    s = Sudoku('complete_9_grid.txt')
+    print solve(s)

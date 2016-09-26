@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Forwarding Unit" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#990099" POSX="10.0" POSY="0.0" WIDTH="90.0"
+            HEIGHT="50.0" RADIUSX="15.0" RADIUSY="15.0">
+            <STROKE LINEWIDTH="2.0"/>
+        </RECTANGLE>
+        <TEXT POSX="50.0" POSY="23.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Serif,bold,12.0">   Forwarding Unit</TEXT>
+    </FORMS>
+    <IO>
+        <INPUT BITS="1" SIGNED="false" POSX="100.0" POSY="20.0" NAME="EXMEM_RegWrite">
+            <LABEL POSX="110.0" POSY="20.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="100.0" POSY="10.0" NAME="EXMEM_Rd">
+            <LABEL POSX="80.0" POSY="-10.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="10.0" POSY="15.0" NAME="IDEX_Rs">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="10.0" POSY="35.0" NAME="IDEX_Rt">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="2" SIGNED="false" POSX="45.0" POSY="0.0" NAME="ForwardA">
+            <LABEL POSX="-10.0" POSY="-20.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="2" SIGNED="false" POSX="30.0" POSY="0.0" NAME="ForwardB">
+            <LABEL POSX="-30.0" POSY="-20.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="100.0" POSY="30.0" NAME="MEMWB_Rd">
+            <LABEL POSX="80.0" POSY="-10.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="100.0" POSY="40.0" NAME="MEMWB_RegWrite">
+            <LABEL POSX="100.0" POSY="20.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="INPUT_CHANGE">{
+	if (EXMEM_RegWrite == 1 &amp;&amp; EXMEM_Rd == IDEX_Rs)
+	{
+		ForwardA = 2;
+	}
+
+	else if (MEMWB_RegWrite == 1 &amp;&amp; MEMWB_Rd == IDEX_Rs)
+	{
+		ForwardA = 1;
+	}
+
+	else
+	{
+		ForwardA = 0;
+	}
+
+	if (EXMEM_RegWrite == 1 &amp;&amp; EXMEM_Rd == IDEX_Rt)
+	{
+		ForwardB = 2;
+	}
+
+	else if (MEMWB_RegWrite == 1 &amp;&amp; MEMWB_Rd == IDEX_Rt)
+	{
+		ForwardB = 1;
+	}
+
+	else
+	{
+		ForwardB = 0;
+	}
+
+}
+		
+	</ACTION>
+    </INTERNALS>
+</SIMPLE>

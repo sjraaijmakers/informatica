@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="EX/MEM Latch" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#00A000" POSX="0.0" POSY="-310.0" WIDTH="10.0"
+            HEIGHT="70.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+            <FILL COLOR="#00A000"/>
+        </RECTANGLE>
+        <RECTANGLE COLOR="#0000C0" POSX="0.0" POSY="-235.0" WIDTH="10.0"
+            HEIGHT="270.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+            <FILL COLOR="#0000BE"/>
+        </RECTANGLE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="1" SIGNED="false" POSX="0.0" POSY="-290.0" NAME="RegWriteIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="0.0" POSY="-250.0" NAME="MemToRegIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="0.0" POSY="-300.0" NAME="MemWriteIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="0.0" POSY="-80.0" NAME="In2">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="0.0" POSY="-30.0" NAME="In4">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="0.0" POSY="20.0" NAME="In6">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-290.0" NAME="RegWriteOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-250.0" NAME="MemToRegOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-300.0" NAME="MemWriteOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="10.0" POSY="-80.0" NAME="Out2">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="10.0" POSY="-30.0" NAME="Out4">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="10.0" POSY="20.0" NAME="Out6">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="FirstCycle" SIZE="1" BITS="1" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="4">
+        <ACTION EVENT="CLOCK_RISING">
+		if (FirstCycle[0])
+		{
+			MemWriteOut = 0;
+			RegWriteOut = 0;
+			MemToRegOut = 0;
+			Out2 = 0;
+			Out4 = 0;
+			Out6 = 0;
+			FirstCycle[0] = 0;
+		}
+		else
+		{
+			MemWriteOut = MemWriteIn;
+			RegWriteOut = RegWriteIn;
+			MemToRegOut = MemToRegIn;
+			Out2 = In2;
+			Out4 = In4;
+			Out6 = In6;
+		}
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

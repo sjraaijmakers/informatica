@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Instruction Memory" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS>
+        <PARAMETERDECL NAME="width" DEFAULT="35"/>
+    </PARAMETERS>
+    <FORMS>
+        <RECTANGLE COLOR="#333333" POSX="-40.0" POSY="-45.0"
+            WIDTH="70.0" HEIGHT="110.0" RADIUSX="15.0" RADIUSY="15.0">
+            <STROKE LINEWIDTH="2.0"/>
+        </RECTANGLE>
+        <TEXT POSX="-5.0" POSY="-20.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,14.0">Instruction
+Memory</TEXT>
+    </FORMS>
+    <IO>
+        <INPUT BITS="16" SIGNED="false" POSX="-40.0" POSY="10.0" NAME="Address">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="${width}" SIGNED="true" POSX="30.0" POSY="10.0" NAME="Data">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="Memory" SIZE="300" BITS="${width}" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="10">
+        <ACTION EVENT="INPUT_CHANGE">
+			// Indexering per word (niet per byte)
+// Voorkom out-of-bound exception door alleen te werken bij correcte input
+
+if (Address &lt; 0d300) Data = Memory[Address];
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

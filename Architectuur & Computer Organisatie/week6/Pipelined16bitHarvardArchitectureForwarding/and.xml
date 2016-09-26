@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="AND Gate" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#FF3333" POSX="-15.0" POSY="-15.0"
+            WIDTH="20.0" HEIGHT="30.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+        </RECTANGLE>
+        <TEXT POSX="-1.0" POSY="5.0" HALIGN="RIGHT" VALIGN="BOTTOM"
+            COLOR="#FF3333" FONT="Dialog,plain,12.0">&amp;		</TEXT>
+    </FORMS>
+    <IO>
+        <INPUT BITS="1" SIGNED="false" POSX="-15.0" POSY="-5.0" NAME="In0">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="-15.0" POSY="5.0" NAME="In1">
+            <LABEL POSX="30.0" POSY="10.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="5.0" POSY="0.0" NAME="LoadPC">
+            <LABEL POSX="10.0" POSY="-20.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="INPUT_CHANGE">
+			LoadPC = In0 &amp;&amp; In1;
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

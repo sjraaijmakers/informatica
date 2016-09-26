@@ -1,0 +1,7 @@
+First five serial numbers are valid.
+The last two are invalid and should fail the tests.
+./wordfinder < serials.txt
+Field (0 x 0): 
+
+Words: 
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Latch" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS>
+        <PARAMETERDECL NAME="width" DEFAULT="1"/>
+    </PARAMETERS>
+    <FORMS>
+        <RECTANGLE COLOR="#0000FF" POSX="95.0" POSY="35.0" WIDTH="10.0"
+            HEIGHT="10.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+            <FILL COLOR="#0000FF"/>
+        </RECTANGLE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="${width}" SIGNED="false" POSX="95.0" POSY="40.0" NAME="In">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="${width}" SIGNED="false" POSX="105.0" POSY="40.0" NAME="Out">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="FirstCycle" SIZE="1" BITS="1" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="CLOCK_RISING">if (FirstCycle[0]) {
+	Out = 0;
+	FirstCycle[0] = 0;
+} else {
+	Out=In;
+}</ACTION>
+    </INTERNALS>
+</SIMPLE>

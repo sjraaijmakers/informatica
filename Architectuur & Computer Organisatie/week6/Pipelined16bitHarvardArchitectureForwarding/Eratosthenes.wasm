@@ -1,0 +1,70 @@
+# Forwarding reduces nr of cycles from 
+# 3014 to 2075 cycles
+@include "PipelinedHarvard.wasm"
+
+.data MyData : REGISTERS
+0x1:	WORD a		5
+	WORD b		7
+	WORD stride
+	WORD tmp
+	WORD max	100
+	WORD maxstr	10
+
+.data MyDataMem : DATAMEM
+0x2: WORD space
+	
+
+.code MyCode : HARVARD, MyData, MyDataMem
+	
+
+
+# initially set 'max' memory cells to one
+# that is, we consider them all primes
+COPY	a, max
+LOADI	b, 1
+# 	NOP
+loop1:	SUBI 	a, a, 1	# start writing at 99
+#	NOP
+#	NOP
+	SW 	b, space, a
+	BZ 	a, end1
+
+	BRA 	loop1
+end1:
+
+# now start looking for non-primes
+
+LOADI	stride, 2
+
+loop2:	SUB 	tmp, stride, maxstr
+#	NOP
+#	NOP
+	BZ 	tmp, end2
+
+	# start erasing ones from 2*stride
+	ADD 	a, stride, stride
+	LOADI	b, 0
+#	NOP
+	loop3:	# is a >= max?
+		SUB	tmp, a, max
+#		NOP
+#		NOP
+		ANDI	tmp, tmp, 0x8000
+#		NOP
+#		NOP
+		BZ	tmp, end3
+
+		SW	b, space, a
+		ADD	a, a, stride
+
+		BRA loop3
+	end3:
+
+	ADDI	stride, stride, 1
+
+	BRA loop2
+
+end2:
+
+
+HALT

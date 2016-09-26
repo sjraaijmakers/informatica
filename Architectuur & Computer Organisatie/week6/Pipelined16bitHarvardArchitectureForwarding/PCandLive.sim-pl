@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<COMPLEX NAME="PCandLive" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS/>
+    <IO>
+        <INPUT BITS="1" SIGNED="false" POSX="190.0" POSY="20.0" NAME="LiveIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="190.0" POSY="60.0" NAME="PCIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="210.0" POSY="20.0" NAME="LiveOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="210.0" POSY="60.0" NAME="PCOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <SUBCOMPONENTS>
+        <SUBCOMPONENT NAME="PC" DATA="Latch.sim-pl" POSX="100.0"
+            POSY="20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS>
+                <PARAMETERVAL NAME="width" VALUE="16"/>
+            </PARAMETERVALS>
+            <STUBS>
+                <STUB POSX="95.0" POSY="40.0" PIN="In"/>
+                <STUB POSX="105.0" POSY="40.0" PIN="Out"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="Live" DATA="Latch.sim-pl" POSX="100.0"
+            POSY="-20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS>
+                <PARAMETERVAL NAME="width" VALUE="1"/>
+            </PARAMETERVALS>
+            <STUBS>
+                <STUB POSX="95.0" POSY="40.0" PIN="In"/>
+                <STUB POSX="105.0" POSY="40.0" PIN="Out"/>
+            </STUBS>
+        </SUBCOMPONENT>
+    </SUBCOMPONENTS>
+    <WIRES>
+        <WIRE NAME="Wire" COLOR="#FF0033">
+            <STROKE/>
+            <NODES>
+                <MAINPIN ID="342c272d9af8ffe7" PIN="LiveIn"/>
+                <SUBPIN ID="fb60607b3bf08cd2" SUBCOMPONENT="Live" PIN="In"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="342c272d9af8ffe7"/>
+                    <NODEREF NODE="fb60607b3bf08cd2"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (2)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <MAINPIN ID="64315a54b3e59851" PIN="PCIn"/>
+                <SUBPIN ID="72e6924d26e1398c" SUBCOMPONENT="PC" PIN="In"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="64315a54b3e59851"/>
+                    <NODEREF NODE="72e6924d26e1398c"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (3)" COLOR="#FF0033">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="892b577d89d6fa46" SUBCOMPONENT="Live" PIN="Out"/>
+                <MAINPIN ID="5ea6ddbd49d2d8a8" PIN="LiveOut"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="892b577d89d6fa46"/>
+                    <NODEREF NODE="5ea6ddbd49d2d8a8"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (4)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="3c47f32f08a62c18" SUBCOMPONENT="PC" PIN="Out"/>
+                <MAINPIN ID="81764348f3ddaf6f" PIN="PCOut"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="3c47f32f08a62c18"/>
+                    <NODEREF NODE="81764348f3ddaf6f"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+    </WIRES>
+</COMPLEX>

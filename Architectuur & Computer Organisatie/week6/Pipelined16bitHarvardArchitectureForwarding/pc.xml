@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="PC" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#333333" POSX="-10.0" POSY="-25.0"
+            WIDTH="30.0" HEIGHT="55.0" RADIUSX="10.0" RADIUSY="10.0">
+            <STROKE LINEWIDTH="2.0"/>
+        </RECTANGLE>
+        <TEXT POSX="5.0" POSY="-10.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">
+			PC
+		</TEXT>
+    </FORMS>
+    <IO>
+        <INPUT BITS="16" SIGNED="false" POSX="-10.0" POSY="0.0" NAME="In">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="true" POSX="5.0" POSY="-25.0" NAME="LOAD">
+            <LABEL POSX="0.0" POSY="-10.0" HALIGN="CENTER" VALIGN="BOTTOM"/>
+        </INPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="20.0" POSY="0.0" NAME="Out">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="FirstCycle" SIZE="1" BITS="1" SIGNED="false"/>
+        <STORAGE NAME="value" SIZE="1" BITS="16" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="10">
+        <ACTION EVENT="CLOCK_RISING">
+			// De PC heeft de nare gewoonte om op 0xFF... te beginnen, zoals
+// iedere component. Om dit te voorkomen voeren we de statevlag
+// FirstCycle in.
+
+{
+	if (FirstCycle[0])
+	{
+		value[0] = 0;
+		FirstCycle[0] = 0;
+	}
+	else
+	{
+		if ( LOAD ) value[0] = In;
+		else 		value[0]++;		
+	}
+	Out = value[0];		
+}
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

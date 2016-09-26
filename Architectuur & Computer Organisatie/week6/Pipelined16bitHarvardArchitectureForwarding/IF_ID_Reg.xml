@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="IF/ID Latch" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#0000C0" POSX="10.0" POSY="-195.0"
+            WIDTH="10.0" HEIGHT="270.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+            <FILL COLOR="#0000C0"/>
+        </RECTANGLE>
+        <RECTANGLE COLOR="#009933" POSX="10.0" POSY="-270.0"
+            WIDTH="10.0" HEIGHT="70.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE LINEWIDTH="2.0"/>
+            <FILL COLOR="#009900"/>
+        </RECTANGLE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="16" SIGNED="false" POSX="10.0" POSY="-180.0" NAME="PCIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="20.0" POSY="-180.0" NAME="PCOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="10.0" POSY="60.0" NAME="rdIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="20.0" POSY="60.0" NAME="rdOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="10.0" POSY="-90.0" NAME="rsIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="10.0" POSY="-70.0" NAME="rtIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="20.0" POSY="-90.0" NAME="rsOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="20.0" POSY="-70.0" NAME="rtOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="10.0" POSY="-140.0" NAME="DataIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="20.0" POSY="-140.0" NAME="DataOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-260.0" NAME="MemWrIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="20.0" POSY="-260.0" NAME="MemWrOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="20.0" POSY="-250.0" NAME="RegWrOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-250.0" NAME="RegWrIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-240.0" NAME="BranchIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="20.0" POSY="-240.0" NAME="BranchOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="2" SIGNED="false" POSX="20.0" POSY="-230.0" NAME="ALUOpOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="2" SIGNED="false" POSX="10.0" POSY="-230.0" NAME="ALUOpIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-220.0" NAME="SecRegIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-210.0" NAME="MemToRegIn">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="20.0" POSY="-220.0" NAME="SecRegOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="20.0" POSY="-210.0" NAME="MemToRegOut">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="FirstCycle" SIZE="1" BITS="1" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="6">
+        <ACTION EVENT="CLOCK_RISING">
+		if (FirstCycle[0])
+		{
+			MemWrOut =   0;
+			RegWrOut =   0;
+			BranchOut =	    0;
+			ALUOpOut =	    0;
+			SecRegOut = 	0;
+			MemToRegOut =   0;
+			PCOut = 		0;
+			DataOut =       0;
+			rsOut =         0;
+			rtOut =         0;
+			rdOut =         0;
+			FirstCycle[0] = 0;
+		}
+		else
+		{
+			MemWrOut =   	MemWrIn;
+			RegWrOut =   	RegWrIn;
+			BranchOut =	    BranchIn;
+			ALUOpOut =	    ALUOpIn;
+			SecRegOut =	    SecRegIn;
+			MemToRegOut =   MemToRegIn;
+			PCOut = 		PCIn;
+			DataOut =       DataIn;
+			rsOut =         rsIn;
+			rtOut =         rtIn;
+			rdOut =         rdIn;
+		}
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

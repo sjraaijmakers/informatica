@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Control" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <LINE COLOR="#000000" FROMX="260" FROMY="70" TOX="260" TOY="390">
+            <STROKE LINEWIDTH="2.5" ENDCAP="0"/>
+        </LINE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="35" SIGNED="false" POSX="260.0" POSY="280.0" NAME="Instruction">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="260.0" POSY="80.0" NAME="RegWrite">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="260.0" POSY="120.0" NAME="MemToReg">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="260.0" POSY="70.0" NAME="MemWrite">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="260.0" POSY="90.0" NAME="Branch">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="2" SIGNED="false" POSX="260.0" POSY="100.0" NAME="ALUOp">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="1" SIGNED="false" POSX="260.0" POSY="110.0" NAME="SecReg">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="260.0" POSY="240.0" NAME="RS">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="260.0" POSY="260.0" NAME="RT">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="4" SIGNED="false" POSX="260.0" POSY="390.0" NAME="RD">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="260.0" POSY="190.0" NAME="IMM">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="INPUT_CHANGE">
+			{
+	0d5 bit Op = Instruction &gt;&gt; 0d30;
+	MemWrite = 	Op &gt;&gt; 0d4;
+	MemToReg = 	Op &gt;&gt; 0d3;
+	Branch = 	Op &gt;&gt; 0d2;
+	RegWrite =  Op &gt;&gt; 0d1;
+	SecReg = 	Op &gt;&gt; 0d0;
+
+	ALUOp = 	Instruction &gt;&gt; 0d28;
+
+	RS = 	Instruction &gt;&gt; 0d24;
+	RT = 	Instruction &gt;&gt; 0d20;
+	RD = 	Instruction &gt;&gt; 0d16;
+
+	IMM = 	Instruction;
+}
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

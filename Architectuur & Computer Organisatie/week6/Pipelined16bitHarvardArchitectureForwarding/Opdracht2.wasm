@@ -1,0 +1,32 @@
+@include "PipelinedHarvard.wasm"
+# Add 3 values stored in memory locations 5..7 and store the result in
+# location 10
+
+# Store 0d10 in address 0d5, 0d11 in address 0d6, etc.
+.data MyData : DATAMEM
+0x05 : 	WORD base 0d10
+       	WORD      0d11
+	WORD      0d12
+
+.code MyCode  : HARVARD, MyData
+	LOADI $6, 0      # Start at element 0
+	LOADI $0, 0      # Clear tussenresultaat
+	LOADI $5, 3      # 3 getallen
+	LOADI $3, 0
+	LOADI $4, 0
+loop:	LW $1, 5, $6    # haalt getal uit geheugen
+	ADDI $6, $6, 1   # volgende getal en volgende adres 
+#	NOP
+	ADD $0, $0, $1   # telt getal op bij tussenresultaat
+	BEQ $6, $5, end  # 3 getallen opgeteld? dan klaar (13)
+	ADDI $3, $3, 1    # testdoeleinde
+	ADDI $4, $4, 1    # testdoeleinde	
+	BRA loop	       # Branch Always to loop
+	ADDI $3, $3, 1    # testdoeleinde
+	ADDI $4, $4, 1    # testdoeleinde
+end: SW $0, base, $6        # resultaat naar volgende adres
+NOP
+NOP
+HALT
+
+

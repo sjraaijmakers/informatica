@@ -1,0 +1,154 @@
+# This file contains the Harvard assembler instruction format definition
+# this concerns partial syntax and full semantics
+#
+# Original author: Wouter Koolen-Wijkstra 
+# Modified 14-01-2007 by Wouter Koolen-Wijkstra to
+# - restrict ALU operations to ADD, SUB, AND, COPY
+# - rearrange opcode bits to be a proper extension of the Calculator.
+
+
+# first: machine information for the compiler
+
+.processor HARVARD
+.setting targetMemory = "Pipelined Processor with Forwarding.Instruction Memory:Memory"
+.autocast {
+	number -> address
+	number -> label
+}
+
+
+# second: the register constants
+.constant {
+   $0   =	0x0/register
+   $1   = 	0x1/register 
+   $2   = 	0x2 /register
+   $3   = 	0x3 /register
+   $4   = 	0x4 /register
+   $5   = 	0x5 /register
+   $6   = 	0x6 /register
+   $7   = 	0x7 /register
+   $8   = 	0x8 /register
+   $9   = 	0x9 /register
+   $10  = 	0xA /register
+   $11  =  	0xB /register
+   $12  =  	0xC /register
+   $13  =  	0xD /register
+   $14  =  	0xE /register
+   $15  =  	0xF /register
+}
+
+
+.highlight {
+	# hack to highlight the first instruction on the START of the first
+	# cycle already. We normally highlight instructions on the END of their
+	# cycle. This one is roze
+	[ "Pipelined Processor with Forwarding.Instruction Memory" | "0xFFFF-(Address==0xFFFF)*Address" | "#c8c8ff"]
+
+	# TODO: tweak these colors
+	# color if instruction live. 
+	[ "Pipelined Processor with Forwarding.Hidden.MEM/WB" | "PCOut*LiveOut + 0xFFFF*!LiveOut" | "#edffa6"]
+	[ "Pipelined Processor with Forwarding.Hidden.MEM/WB" | "PCIn*LiveIn   + 0xFFFF*!LiveIn"  | "#ffa6a6"]
+	[ "Pipelined Processor with Forwarding.Hidden.EX/MEM" | "PCIn*LiveIn   + 0xFFFF*!LiveIn"  | "#eda6ff"]
+	[ "Pipelined Processor with Forwarding.Hidden.ID/EX"  | "PCIn*LiveIn   + 0xFFFF*!LiveIn"  | "#a6caff"]
+	[ "Pipelined Processor with Forwarding.Hidden.IF/ID"  | "PCIn*LiveIn   + 0xFFFF*!LiveIn"  | "#a6ffca"]
+
+	# TODO: tweak these colors
+	# color if instruction NOP-ped out by jump
+	[ "Pipelined Processor with Forwarding.Hidden.MEM/WB" | "PCOut*!LiveOut + 0xFFFF*LiveOut" | "#ff0000"]
+	[ "Pipelined Processor with Forwarding.Hidden.MEM/WB" | "PCIn*!LiveIn   + 0xFFFF*LiveIn"  | "#ff0000"]
+	[ "Pipelined Processor with Forwarding.Hidden.EX/MEM" | "PCIn*!LiveIn   + 0xFFFF*LiveIn"  | "#ff0000"]
+	[ "Pipelined Processor with Forwarding.Hidden.ID/EX"  | "PCIn*!LiveIn   + 0xFFFF*LiveIn"  | "#ff0000"]
+	[ "Pipelined Processor with Forwarding.Hidden.IF/ID"  | "PCIn*!LiveIn   + 0xFFFF*LiveIn"  | "#ff0000"]
+
+}
+
+
+# third: instruction format and instruction definitions
+
+.opcodepartition {
+	
+	DEFAULT = [ \
+		MemWrite:0d1, \
+		MemToReg:0d1, \
+		Branch:0d1, \
+		RegWrite:0d1, \
+		SecReg:0d1, \
+		ALU:0d2, \
+		RS:0d4, \
+		RT:0d4, \
+		RD: 0d4, \
+		IMM:0d16]
+
+	# the JUMP opcode partition only differs from the 
+	# DEFAULT in the naming of the last field.
+
+	JUMP = [ \
+		MemWrite:0d1, \
+		MemToReg:0d1, \
+		Branch:0d1, \
+		RegWrite:0d1, \
+		SecReg:0d1, \
+		ALU:0d2, \
+		RS:0d4, \
+		RT:0d4, \
+		RD: 0d4, \
+		OFFS:0d16]
+}
+
+
+# The ALU opcodes are
+# 00 : ADD
+# 01 : SUB
+# 10 : AND
+# 11 : COPY
+
+.instructionformat   NOP = 	[DEFAULT |]
+.instructiondefinition NOP =	[NOP	| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 0; ALU = 0b00; RS = 0; RT = 0; RD = 0; IMM = 0;"]
+
+
+.instructionformat   ARITH1 = [DEFAULT | rd:0d4/register, rt:0d4/register]
+.instructiondefinition COPY =	[ARITH1	| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 1; RegWrite = 1; ALU = 0b11; RS = 0; RT = rt; RD = rd; IMM = 0;"]
+
+.instructionformat   ARITH2 = [DEFAULT | rd:0d4/register, rs:0d4/register, rt:0d4/register]
+.instructiondefinition ADD =	[ARITH2	| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 1; RegWrite = 1; ALU = 0b00; RS = rs; RT = rt; RD = rd; IMM = 0;"]
+.instructiondefinition SUB =	[ARITH2	| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 1; RegWrite = 1; ALU = 0b01; RS = rs; RT = rt; RD = rd; IMM = 0;"]
+.instructiondefinition AND= 	[ARITH2	| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 1; RegWrite = 1; ALU = 0b10; RS = rs; RT = rt; RD = rd; IMM = 0;"]
+
+.instructionformat   ARITHI1 = [DEFAULT | rd:0d4/register, imm:0d16/number]
+.instructiondefinition LOADI =	[ARITHI1 |" MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 1; ALU = 0b11; RS = 0; RT = 0; RD = rd; IMM = imm;"]
+
+.instructionformat   ARITHI2 = [DEFAULT | rd:0d4/register, rs:0d4/register, imm:0d16/number]
+.instructiondefinition ADDI =	[ARITHI2| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 1; ALU = 0b00; RS = rs; RT = 0; RD = rd; IMM = imm;"]
+.instructiondefinition SUBI =	[ARITHI2| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 1; ALU = 0b01; RS = rs; RT = 0; RD = rd; IMM = imm;"]
+.instructiondefinition ANDI =	[ARITHI2| " MemWrite = 0; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 1; ALU = 0b10; RS = rs; RT = 0; RD = rd; IMM = imm;"]
+
+
+.instructionformat   HALT = [JUMP|]
+.instructiondefinition HALT =	[HALT| "MemWrite = 0; MemToReg = 0; Branch = 1; SecReg = 1; RegWrite = 0; ALU = 0b01; RS = 0; RT = 0; RD = 0; OFFS = 0;"]
+
+
+.instructionformat   BRANCH0 = [JUMP | offs:0d16/label]
+.instructiondefinition BRA =	[BRANCH0| "MemWrite = 0; MemToReg = 0; Branch = 1; SecReg = 1; RegWrite = 0; ALU = 0b01; RS = 0; RT = 0; RD = 0; OFFS = offs-self;"]
+
+.instructionformat   BRANCH1 = [JUMP | rt:0d4/register, offs:0d16/label]
+.instructiondefinition BZ =	[BRANCH1| "MemWrite = 0; MemToReg = 0; Branch = 1; SecReg = 1; RegWrite = 0; ALU = 0b11; RS = 0; RT = rt; RD = 0; OFFS = offs-self;"]
+
+.instructionformat   BRANCH2 = [JUMP | rs:0d4/register, rt:0d4/register, offs:0d16/label]
+.instructiondefinition BEQ =	[BRANCH2| "MemWrite = 0; MemToReg = 0; Branch = 1; SecReg = 1; RegWrite = 0; ALU = 0b01;  RS = rs; RT = rt; RD = 0; OFFS = offs-self;"]
+
+.instructionformat   LOADSTORE = [JUMP | rd:0d4/register, offs:0d16/address, rs:0d4/register]
+.instructiondefinition LW 	=[LOADSTORE |	 "MemWrite = 0; MemToReg = 1; Branch = 0; SecReg = 0; RegWrite = 1; ALU=0b00; RS = rs; RT = 0; RD = rd; OFFS = offs;"]
+.instructiondefinition SW 	=	[LOADSTORE |	 "MemWrite = 1; MemToReg = 0; Branch = 0; SecReg = 0; RegWrite = 0; ALU=0b00; RS = rs; RT = rd; RD = 0; OFFS = offs;"]
+
+
+
+.memory DATAMEM
+.setting targetMemory = "Pipelined Processor with Forwarding.Data Memory:Memory"
+
+
+.memory REGISTERS
+.setting { 
+	targetMemory = "Pipelined Processor with Forwarding.Registers:Registers"
+	addressType = register
+}
+

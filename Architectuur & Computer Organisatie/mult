@@ -1,0 +1,22 @@
+LUI	$multiplicand, 6			# multiplicand = 6
+LUI	$multiplier, 3				# multiplier = 3
+MOVE	$s0, $zero				# i = 0	
+LUI	$a1, 32					# n = 32
+
+forloop:
+SLT	$t0, $s0, $a1				# reg $t0 = 0 if $s0 > $a1 (i > n)
+BEQ	$t0, $zero, exit			# go to exit1 if $t0 == 0
+
+# BODY FOR LOOP:
+BNE	$multiplier, 0, shift			# if mulitplier is not null go to SHIFT, else:
+ADD	$product, $multiplicand, $product 	# product = multiplicand + product
+
+shift:
+SLL      $multiplicand, $multiplicand, 1       	# shift left logical by 1
+SRL      $multiplier, $multiplier, 1      	# shift right logical by 1
+
+ADDI	$s0, $s0, 1				# i += 1
+J forloop					# jump back
+exit:
+
+

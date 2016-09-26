@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Sink" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS>
+        <PARAMETERDECL NAME="width" DEFAULT="1"/>
+    </PARAMETERS>
+    <FORMS>
+        <RECTANGLE COLOR="#000000" POSX="125.0" POSY="105.0"
+            WIDTH="10.0" HEIGHT="10.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+        </RECTANGLE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="${width}" SIGNED="false" POSX="125.0" POSY="110.0" NAME="Sink">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1"/>
+</SIMPLE>

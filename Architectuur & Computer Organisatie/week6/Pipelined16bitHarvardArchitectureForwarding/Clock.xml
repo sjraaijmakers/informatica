@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Clock" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#333333" POSX="40.0" POSY="20.0" WIDTH="60.0"
+            HEIGHT="20.0" RADIUSX="10.0" RADIUSY="10.0">
+            <STROKE LINEWIDTH="2.0"/>
+        </RECTANGLE>
+        <TEXT POSX="70.0" POSY="30.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">Clock</TEXT>
+    </FORMS>
+    <IO>
+        <OUTPUT BITS="1" SIGNED="false" POSX="100.0" POSY="30.0" NAME="Clock">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="INIT">
+			Clock=0;
+		</ACTION>
+        <ACTION EVENT="CLOCK_RISING">
+			Clock = 1;
+		</ACTION>
+        <ACTION EVENT="CLOCK_FALLING">
+			Clock = 0;
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

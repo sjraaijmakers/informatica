@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Registers" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="100">
+    <PARAMETERS/>
+    <FORMS>
+        <RECTANGLE COLOR="#333333" POSX="-30.0" POSY="-45.0"
+            WIDTH="80.0" HEIGHT="110.0" RADIUSX="15.0" RADIUSY="15.0">
+            <STROKE LINEWIDTH="2.0"/>
+        </RECTANGLE>
+        <TEXT POSX="10.0" POSY="5.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,14.0">
+			Registers
+		</TEXT>
+        <TEXT POSX="50.0" POSY="-20.0" HALIGN="RIGHT" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,11.0">
+			First reg.
+		</TEXT>
+        <TEXT POSX="50.0" POSY="45.0" HALIGN="RIGHT" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,11.0">
+			Sec. reg.
+		</TEXT>
+        <TEXT POSX="-20.0" POSY="-32.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">
+			rs
+		</TEXT>
+        <TEXT POSX="-23.0" POSY="-12.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">
+			rt
+		</TEXT>
+        <TEXT POSX="-20.0" POSY="27.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">
+			rd
+		</TEXT>
+        <TEXT POSX="-12.0" POSY="48.0" HALIGN="CENTER" VALIGN="CENTER"
+            COLOR="#000000" FONT="Dialog,plain,12.0">
+			Data
+		</TEXT>
+    </FORMS>
+    <IO>
+        <INPUT BITS="4" SIGNED="false" POSX="-30.0" POSY="-30.0" NAME="Read0">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="-30.0" POSY="-10.0" NAME="Read1">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="4" SIGNED="false" POSX="-30.0" POSY="30.0" NAME="WriteReg">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="16" SIGNED="false" POSX="-30.0" POSY="50.0" NAME="WriteData">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="10.0" POSY="-45.0" NAME="RegWrite">
+            <LABEL POSX="0.0" POSY="-10.0" HALIGN="CENTER" VALIGN="BOTTOM"/>
+        </INPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="50.0" POSY="-20.0" NAME="Reg0">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <OUTPUT BITS="16" SIGNED="false" POSX="50.0" POSY="45.0" NAME="Reg1">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+    </IO>
+    <MEMORY>
+        <STORAGE NAME="Registers" SIZE="16" BITS="16" SIGNED="false"/>
+    </MEMORY>
+    <INTERNALS DELAY="3">
+        <ACTION EVENT="INPUT_CHANGE">
+			{   Reg0 = Registers[Read0];
+				Reg1 = Registers[Read1];
+			}
+		</ACTION>
+        <ACTION EVENT="CLOCK_FALLING">
+			if (RegWrite)
+			{
+				Registers[WriteReg] = WriteData;
+				if (WriteReg == Read0) Reg0 = WriteData;
+				if (WriteReg == Read1) Reg1 = WriteData;
+			}
+		</ACTION>
+    </INTERNALS>
+</SIMPLE>

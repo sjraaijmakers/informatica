@@ -1,0 +1,16 @@
+@include "Mips.wasm"
+
+.data MyRegisters : REGISTERS
+0x0 : WORD 0x0 
+
+.data MyMemory : DATAMEM 
+0x01 : WORD ref1 4294967295
+0x02 : WORD ref2 1
+0x03 : WORD ref3 0x5555
+
+.code MyCode  : MIPS, MyRegisters, MyMemory
+LW $1, ref1, $0 	# $1 = max_intvalue
+NOP                  # No operation
+LW $2, ref2, $0 	# $2 = 1
+NOP
+ADD $3, $1, $2

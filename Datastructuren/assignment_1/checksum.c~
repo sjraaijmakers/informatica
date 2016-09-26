@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <error.h>
+#include <assert.h>
+
+#include "debug.h"
+
+int check_serial(char c, long long num) {
+    assert(isupper(c));
+    assert(num > 0);
+
+    // TODO: Your code here.
+    return 1; //?
+}
+
+
+int main(void) {
+    long long num; // Need 64 bit integer to store 11 digit serial number.
+    char c;
+
+    // Example of debug printing
+    DEBUG_PRINT(("Start program\n"));
+
+    while (fscanf(stdin, "%c%lld\n", &c, &num) == 2) {
+        printf("%c%lld: ", c, num);
+
+        if (check_serial(c, num)) {
+            printf("OK");
+        } else {
+            printf("FAILED");
+        }
+        printf("\n");
+    }
+    return EXIT_SUCCESS;
+}

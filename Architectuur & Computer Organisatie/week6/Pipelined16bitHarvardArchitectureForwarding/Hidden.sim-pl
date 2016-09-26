@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<COMPLEX NAME="Hidden" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS/>
+    <FORMS/>
+    <IO>
+        <INPUT BITS="16" SIGNED="false" POSX="120.0" POSY="110.0" NAME="PC">
+            <LABEL POSX="0.0" POSY="10.0" HALIGN="CENTER" VALIGN="TOP"/>
+        </INPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="155.0" POSY="110.0" NAME="Cut">
+            <LABEL POSX="0.0" POSY="10.0" HALIGN="CENTER" VALIGN="TOP"/>
+        </INPUT>
+    </IO>
+    <SUBCOMPONENTS>
+        <SUBCOMPONENT NAME="Cutter ID" DATA="Cutter.sim-pl" POSX="15.0"
+            POSY="80.0" ZOOM="1.0" FLIP="VERTICAL">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="95.0" POSY="40.0" PIN="In"/>
+                <STUB POSX="100.0" POSY="35.0" PIN="Cut"/>
+                <STUB POSX="105.0" POSY="40.0" PIN="Out"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="Cutter EX" DATA="Cutter.sim-pl" POSX="55.0"
+            POSY="80.0" ZOOM="1.0" FLIP="VERTICAL">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="100.0" POSY="35.0" PIN="Cut"/>
+                <STUB POSX="95.0" POSY="40.0" PIN="In"/>
+                <STUB POSX="105.0" POSY="40.0" PIN="Out"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="One" DATA="One.sim-pl" POSX="-80.0"
+            POSY="-130.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="185.0" POSY="170.0" PIN="One"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="Cut Sink" DATA="Sink.sim-pl" POSX="170.0"
+            POSY="-70.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="125.0" POSY="110.0" PIN="Sink"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="PC Sink " DATA="Sink.sim-pl" POSX="170.0"
+            POSY="-30.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS>
+                <PARAMETERVAL NAME="width" VALUE="16"/>
+            </PARAMETERVALS>
+            <STUBS>
+                <STUB POSX="125.0" POSY="110.0" PIN="Sink"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="IF/ID" DATA="PCandLive2.sim-pl" POSX="-60.0"
+            POSY="20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="200.0" POSY="20.0" PIN="LiveOut"/>
+                <STUB POSX="190.0" POSY="60.0" PIN="PCIn"/>
+                <STUB POSX="200.0" POSY="60.0" PIN="PCOut"/>
+                <STUB POSX="190.0" POSY="20.0" PIN="LiveIn"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="ID/EX" DATA="PCandLive2.sim-pl" POSX="-20.0"
+            POSY="20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="190.0" POSY="60.0" PIN="PCIn"/>
+                <STUB POSX="200.0" POSY="60.0" PIN="PCOut"/>
+                <STUB POSX="190.0" POSY="20.0" PIN="LiveIn"/>
+                <STUB POSX="200.0" POSY="20.0" PIN="LiveOut"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="EX/MEM" DATA="PCandLive2.sim-pl" POSX="20.0"
+            POSY="20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="200.0" POSY="20.0" PIN="LiveOut"/>
+                <STUB POSX="190.0" POSY="60.0" PIN="PCIn"/>
+                <STUB POSX="200.0" POSY="60.0" PIN="PCOut"/>
+                <STUB POSX="190.0" POSY="20.0" PIN="LiveIn"/>
+            </STUBS>
+        </SUBCOMPONENT>
+        <SUBCOMPONENT NAME="MEM/WB" DATA="PCandLive2.sim-pl" POSX="60.0"
+            POSY="20.0" ZOOM="1.0" FLIP="NONE">
+            <PARAMETERVALS/>
+            <STUBS>
+                <STUB POSX="190.0" POSY="20.0" PIN="LiveIn"/>
+                <STUB POSX="200.0" POSY="20.0" PIN="LiveOut"/>
+                <STUB POSX="190.0" POSY="60.0" PIN="PCIn"/>
+                <STUB POSX="200.0" POSY="60.0" PIN="PCOut"/>
+            </STUBS>
+        </SUBCOMPONENT>
+    </SUBCOMPONENTS>
+    <WIRES>
+        <WIRE NAME="Wire (10)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="95ed348ca4f47ebf" SUBCOMPONENT="Cut Sink" PIN="Sink"/>
+                <SUBPIN ID="dbad9478400964c0" SUBCOMPONENT="MEM/WB" PIN="LiveOut"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="dbad9478400964c0"/>
+                    <NODEREF NODE="95ed348ca4f47ebf"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (11)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <MAINPIN ID="32a865124763f037" PIN="PC"/>
+                <SPLIT ID="d172ebbf13448d0c" POSX="120.0" POSY="80.0"/>
+                <SUBPIN ID="e80ced72a7a4296c" SUBCOMPONENT="IF/ID" PIN="PCIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="32a865124763f037"/>
+                    <NODEREF NODE="d172ebbf13448d0c"/>
+                </SPAN>
+                <SPAN>
+                    <NODEREF NODE="32a865124763f037"/>
+                    <NODEREF NODE="d172ebbf13448d0c"/>
+                </SPAN>
+                <SPAN>
+                    <NODEREF NODE="e80ced72a7a4296c"/>
+                    <NODEREF NODE="d172ebbf13448d0c"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (12)" COLOR="#FF0033">
+            <STROKE/>
+            <NODES>
+                <MAINPIN ID="5c27485818903f74" PIN="Cut"/>
+                <SUBPIN ID="7c35bafc094ac361" SUBCOMPONENT="Cutter ID" PIN="Cut"/>
+                <SPLIT ID="4771c42ccd1a3fb0" POSX="115.0" POSY="60.0"/>
+                <SUBPIN ID="5cd61260af6e8ca3" SUBCOMPONENT="Cutter EX" PIN="Cut"/>
+                <SPLIT ID="ff0bf78357c8c736" POSX="155.0" POSY="60.0"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="7c35bafc094ac361"/>
+                    <NODEREF NODE="4771c42ccd1a3fb0"/>
+                    <NODEREF NODE="ff0bf78357c8c736"/>
+                </SPAN>
+                <SPAN>
+                    <NODEREF NODE="5cd61260af6e8ca3"/>
+                    <NODEREF NODE="ff0bf78357c8c736"/>
+                </SPAN>
+                <SPAN>
+                    <NODEREF NODE="ff0bf78357c8c736"/>
+                    <NODEREF NODE="5c27485818903f74"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (13)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="4a0e3a1d9348196f" SUBCOMPONENT="PC Sink " PIN="Sink"/>
+                <SUBPIN ID="576ce1180922b713" SUBCOMPONENT="MEM/WB" PIN="PCOut"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="576ce1180922b713"/>
+                    <NODEREF NODE="4a0e3a1d9348196f"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (14)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="86a4e4806ed2edb5" SUBCOMPONENT="EX/MEM" PIN="LiveOut"/>
+                <SUBPIN ID="5be72a263568b46d" SUBCOMPONENT="MEM/WB" PIN="LiveIn">
+                    <PROBE POSX="5.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+                </SUBPIN>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="86a4e4806ed2edb5"/>
+                    <NODEREF NODE="5be72a263568b46d"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (15)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="62cb1ee583341572" SUBCOMPONENT="IF/ID" PIN="PCOut"/>
+                <SUBPIN ID="17e218c4781d1b35" SUBCOMPONENT="ID/EX" PIN="PCIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="62cb1ee583341572"/>
+                    <NODEREF NODE="17e218c4781d1b35"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (16)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="a0cc60a42bd05f41" SUBCOMPONENT="ID/EX" PIN="PCOut"/>
+                <SUBPIN ID="4fcf5b37d36a556e" SUBCOMPONENT="EX/MEM" PIN="PCIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="a0cc60a42bd05f41"/>
+                    <NODEREF NODE="4fcf5b37d36a556e"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (17)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="92478e0d49550ab" SUBCOMPONENT="EX/MEM" PIN="PCOut"/>
+                <SUBPIN ID="cea647aeef30b040" SUBCOMPONENT="MEM/WB" PIN="PCIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="92478e0d49550ab"/>
+                    <NODEREF NODE="cea647aeef30b040"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (18)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="ef112f484926dbb1" SUBCOMPONENT="Cutter EX" PIN="Out"/>
+                <SUBPIN ID="759afb443a72dcd9" SUBCOMPONENT="ID/EX" PIN="LiveIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="ef112f484926dbb1"/>
+                    <NODEREF NODE="759afb443a72dcd9"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (19)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="3e5e4fdd9e44ba56" SUBCOMPONENT="ID/EX" PIN="LiveOut"/>
+                <SUBPIN ID="b9078e8fb628bbc2" SUBCOMPONENT="EX/MEM" PIN="LiveIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="3e5e4fdd9e44ba56"/>
+                    <NODEREF NODE="b9078e8fb628bbc2"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="df23460564bad5bc" SUBCOMPONENT="Cutter EX" PIN="In"/>
+                <SUBPIN ID="c1586912484f8555" SUBCOMPONENT="IF/ID" PIN="LiveOut"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="c1586912484f8555"/>
+                    <NODEREF NODE="df23460564bad5bc"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (20)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="c65fb9fec6052676" SUBCOMPONENT="One" PIN="One"/>
+                <SUBPIN ID="130fd15c22ecb226" SUBCOMPONENT="Cutter ID" PIN="In"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="c65fb9fec6052676"/>
+                    <NODEREF NODE="130fd15c22ecb226"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+        <WIRE NAME="Wire (21)" COLOR="#000000">
+            <STROKE/>
+            <NODES>
+                <SUBPIN ID="e764a4dd04f1d63c" SUBCOMPONENT="Cutter ID" PIN="Out"/>
+                <SUBPIN ID="bf1578f297c79c83" SUBCOMPONENT="IF/ID" PIN="LiveIn"/>
+            </NODES>
+            <SPANS>
+                <SPAN>
+                    <NODEREF NODE="e764a4dd04f1d63c"/>
+                    <NODEREF NODE="bf1578f297c79c83"/>
+                </SPAN>
+            </SPANS>
+        </WIRE>
+    </WIRES>
+</COMPLEX>

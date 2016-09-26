@@ -1,0 +1,17 @@
+@include "Mips.wasm"
+
+.data MyRegisters : REGISTERS
+0x0 : WORD 0x0 
+
+.data MyMemory : DATAMEM 
+0x01 : WORD ref1 0xA
+0x02 : WORD ref2 0xB
+0x03 : WORD ref3 0x5555
+
+.code MyCode  : MIPS, MyRegisters, MyMemory
+LW $1, ref1, $0 
+NOP                  # No operation
+LW $2, ref2, $0 
+NOP
+NOP
+ADD $3, $1, $2

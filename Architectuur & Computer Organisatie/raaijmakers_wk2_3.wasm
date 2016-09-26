@@ -1,0 +1,62 @@
+#generated assembly code for SIMPL
+@include "Mips.wasm"
+.data	MyRegisters:	REGISTERS
+0:	WORD    zero    0      
+1:	WORD    temp    0      
+2:	WORD     0      
+3:	WORD     0      
+4:	WORD     0      
+5:	WORD     0      
+6:	WORD     0      
+7:	WORD     0      
+8:	WORD     0      
+9:	WORD     0      
+10:	WORD     0      
+29:	WORD    sp      0      
+31:	WORD    ra     
+.data	MyMemory:	DATAMEM
+50:	WORD stack	# start of stack
+0:	WORD    a       0      
+1:	WORD    b       0      
+.code	MyCode:	MIPS,MyMemory
+	J       INIT   
+2:	WORD    i       0      
+3:	WORD    result  0      
+L1:	# main
+	LUI     $1     , 0      	# storing numeric into reg
+	ORI     $1     , $1     , 6      
+	SW      $1     , a      , $0     	# assignment of var
+	# expr;
+	LUI     $1     , 0      	# storing numeric into reg
+	ORI     $1     , $1     , 1      
+	SW      $1     , b      , $0     	# assignment of var
+	# expr;
+	LUI     $1     , 0      	# storing numeric into reg
+	ORI     $1     , $1     , 0      
+	SW      $1     , i      , $0     	# assignment of var
+X1:	# start for loop
+	LW      $1     , i      , $0     	# storing var into reg
+	LUI     $2     , 0      	# storing numeric into reg
+	ORI     $2     , $2     , 33      
+	SLT     $1     , $1     , $2     	# check $r1 < $2
+	BEQ     $1     , $0     , X2     
+	LW      $3     , i      , $0     
+	ADDI    $3     , $3     , 1      
+	SW      $3     , i      , $0     
+	LW      $3     , a      , $0     	# storing var into reg
+	LW      $4     , b      , $0     	# storing var into reg
+	SLL     $3     , $3     , $4     	# sll operation
+	SW      $3     , a      , $0     	# assignment of var
+	# expr;
+	J       X1     	# end for
+X2:	# end for
+	LW      $3     , a      , $0     	# storing var into reg
+	SW      $3     , result , $0     	# assignment of var
+	# expr;
+	LUI     $3     , 0      	# storing numeric into reg
+	ORI     $3     , $3     , 1      
+	#return int value	# stack ret value
+	JR      $31    	# return
+INIT:	# Start of our program
+	J       L1     	# jump to the main code
+END:

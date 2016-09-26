@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SIMPLE NAME="Cutter" PREFERREDNUMBERFORMAT="Hexadecimal" PREFERREDCYCLELENGTH="10">
+    <PARAMETERS>
+        <PARAMETERDECL NAME="width" DEFAULT="1"/>
+    </PARAMETERS>
+    <FORMS>
+        <RECTANGLE COLOR="#FF0000" POSX="95.0" POSY="35.0" WIDTH="10.0"
+            HEIGHT="10.0" RADIUSX="0.0" RADIUSY="0.0">
+            <STROKE/>
+            <FILL COLOR="#FF0000"/>
+        </RECTANGLE>
+    </FORMS>
+    <IO>
+        <INPUT BITS="${width}" SIGNED="false" POSX="95.0" POSY="40.0" NAME="In">
+            <LABEL POSX="-10.0" POSY="0.0" HALIGN="RIGHT" VALIGN="CENTER"/>
+        </INPUT>
+        <OUTPUT BITS="${width}" SIGNED="false" POSX="105.0" POSY="40.0" NAME="Out">
+            <LABEL POSX="10.0" POSY="0.0" HALIGN="LEFT" VALIGN="CENTER"/>
+        </OUTPUT>
+        <INPUT BITS="1" SIGNED="false" POSX="100.0" POSY="35.0" NAME="Cut">
+            <LABEL POSX="0.0" POSY="-10.0" HALIGN="CENTER" VALIGN="BOTTOM"/>
+        </INPUT>
+    </IO>
+    <MEMORY/>
+    <INTERNALS DELAY="1">
+        <ACTION EVENT="INPUT_CHANGE">if (Cut)	Out=0;
+else 		Out=In;</ACTION>
+    </INTERNALS>
+</SIMPLE>

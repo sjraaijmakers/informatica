@@ -1,0 +1,12 @@
+ARM is a family of instruction set architectures for computer
+processors based on a reduced instruction set computing (RISC)
+architecture developed by British company ARM Holdings.
+
+A RISC-based computer design approach means ARM processors require
+significantly fewer transistors than typical CISC processors in
+most personal computers. This approach reduces costs, heat and power
+use. Such reductions are desirable traits for light, portable,
+battery-powered devices including smartphones, laptops, tablet
+and notepad computers, and other embedded systems. A simpler design
+facilitates more efficient multi-core CPUs and higher core counts at
+lower cost, providing improved energy efficiency for servers.
