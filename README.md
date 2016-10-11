@@ -20,7 +20,7 @@ Started in september 2014 @ UvA
 4. -
 5. Numerical Recipes Project
 6. Graphics & Game Technologie
-7.
+7. - 
 8. Statistisch Redeneren
 9. _Reflectie op de Digitale Cultuur_
 10. Project Software Engineering
