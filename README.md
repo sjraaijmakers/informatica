@@ -1,5 +1,5 @@
 # BSc Computer Science
-Started in academic year 2014 - 2015 @ UvA
+Started in september 2014 @ UvA
 
 ## 2014 - 2015:
 1. Inleiding Programmeren
