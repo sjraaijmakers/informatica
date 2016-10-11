@@ -12,6 +12,7 @@ Started in academic year 2014 - 2015 @ UvA
 8. Besturingssystemen
 9. _Automaten & Formele Talen_
 10. _Multimedia_
+
 #### 10/10
 
 ## 2015 - 2016
@@ -25,6 +26,7 @@ Started in academic year 2014 - 2015 @ UvA
 8. Statistisch Redeneren
 9. _Reflectie op de Digitale Cultuur_
 10. Project Software Engineering
+
 #### 6/10
 
 ## 2016 - 2017
