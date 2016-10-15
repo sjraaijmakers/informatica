@@ -1,0 +1,37 @@
+dictionary = {}
+def namen(input):
+    # Als input niet bestaat, dan heeft de gebruiker een lege string
+    # doorgeven. Dat betekent dat we de inhoud van de dictionary willen printen
+    if not input:
+        # Je loopt hier over de dictionary heen. Uit de dictionary krijg je
+        # telkens twee waardes terug. De key en de value, zoals:
+        # dictionary["Huug"] = 1. Hierbij is de key Huug en de value 1
+        for key, value in dictionary.iteritems():
+            # Als de value 1 is, wil je in enkelvoud printen. Dus student ipv
+            # studenten.
+            if value == 1:
+                print "Er is 1 student met de naam " + str(key)
+            # Als de value niet 1 is, kan er in meervoud worden geprint
+            else:
+                print "Er zijn " + str(value) + " studenten met de naam " + str(key)
+    # Als er wel input was, betekent dat dat er een waarde moet worden
+    # toegevoegd aan de dictionary
+    else:
+        # Als er in de dictionary nog nergens een vakje voorkomt met de key,
+        # dan maak je hem aan en zet je de waarde op een.
+        # Dus als je nu namen("Bert") opgeeft en die nog niet in dictionary
+        # stond, wordt hij bij deze toegevoegd en de waarde op 1 gezet
+        if input not in dictionary:
+            dictionary[input] = 1
+        # Stel dat de waarde van "input" wel al in de dictionary stond, dan
+        # hoog je deze op met 1.
+        else:
+            dictionary[input] += 1
+
+
+namen("Huug")
+namen("Huug")
+namen("Koen")
+namen("")
+
+print dictionary
