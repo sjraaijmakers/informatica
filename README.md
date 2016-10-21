@@ -28,8 +28,3 @@ Started in september 2014 @ University of Amsterdam
 ## 2016 - 2017
 1. Logisch Programmeren & Zoektechnieken
 2. Netwerken & Systeembeveiliging
-
-### Legenda:
-
-* _Geen programmeeropdrachten_
-* ** = Gevolgd maar niet gehaald
