@@ -63,7 +63,6 @@ split(Rel, Middle, [Head|Tail], Left, [Head|Right]) :-
 % A:
 
 % Counter
-
 % Tell prolog counter() will be dynamic
 :- dynamic counter/1.
 
