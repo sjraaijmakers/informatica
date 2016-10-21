@@ -1,6 +1,8 @@
 # BSc Computer Science
 Started in september 2014 @ University of Amsterdam
 
+For educational purposes only.
+
 ## 2014 - 2015:
 1. Inleiding Programmeren
 2. Architectuur & Computer Organisatie
