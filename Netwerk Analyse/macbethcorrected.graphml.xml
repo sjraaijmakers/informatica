@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"  
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+   http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+   <key id="n1" for="node" attr.name="name" attr.type="string"/>
+   <key id="n2" for="node" attr.name="number-of-speeches" attr.type="int"/>
+   <key id="e1" for="edge" attr.name="number-of-shared-scenes" attr.type="int"/>
+   <graph id="TheTragedyofMacbeth" edgedefault="undirected">
+      <desc>The Tragedy of Macbeth</desc>
+      <node  id="MACBETH">
+         <data key="n1">MACBETH</data>
+         <data key="n2">146</data>
+      </node>
+      <node  id="LADYMACBETH">
+         <data key="n1">LADY MACBETH</data>
+         <data key="n2">59</data>
+      </node>
+      <node  id="MACDUFF">
+         <data key="n1">MACDUFF</data>
+         <data key="n2">59</data>
+      </node>
+      <node  id="MALCOLM">
+         <data key="n1">MALCOLM</data>
+         <data key="n2">40</data>
+      </node>
+      <node  id="ROSS">
+         <data key="n1">ROSS</data>
+         <data key="n2">39</data>
+      </node>
+      <node  id="BANQUO">
+         <data key="n1">BANQUO</data>
+         <data key="n2">33</data>
+      </node>
+      <node  id="FirstWitch">
+         <data key="n1">First Witch</data>
+         <data key="n2">23</data>
+      </node>
+      <node  id="LENNOX">
+         <data key="n1">LENNOX</data>
+         <data key="n2">22</data>
+      </node>
+      <node  id="FirstMurderer">
+         <data key="n1">First Murderer</data>
+         <data key="n2">19</data>
+      </node>
+      <node  id="DUNCAN">
+         <data key="n1">DUNCAN</data>
+         <data key="n2">18</data>
+      </node>
+      <node  id="SecondWitch">
+         <data key="n1">Second Witch</data>
+         <data key="n2">15</data>
+      </node>
+      <node  id="ThirdWitch">
+         <data key="n1">Third Witch</data>
+         <data key="n2">13</data>
+      </node>
+      <node  id="ALL">
+         <data key="n1">ALL</data>
+         <data key="n2">13</data>
+      </node>
+      <node  id="SIWARD">
+         <data key="n1">SIWARD</data>
+         <data key="n2">11</data>
+      </node>
+      <node  id="Messenger">
+         <data key="n1">Messenger</data>
+         <data key="n2">6</data>
+      </node>
+      <node  id="SecondMurderer">
+         <data key="n1">Second Murderer</data>
+         <data key="n2">6</data>
+      </node>
+      <node  id="Servant">
+         <data key="n1">Servant</data>
+         <data key="n2">5</data>
+      </node>
+      <node  id="SEYTON">
+         <data key="n1">SEYTON</data>
+         <data key="n2">5</data>
+      </node>
+      <edge  id="FirstWitch-and-SecondWitch" source="FirstWitch" target="SecondWitch">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="FirstWitch-and-ThirdWitch" source="FirstWitch" target="ThirdWitch">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="FirstWitch-and-ALL" source="FirstWitch" target="ALL">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="FirstWitch-and-MACBETH" source="FirstWitch" target="MACBETH">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="SecondWitch-and-ThirdWitch" source="SecondWitch" target="ThirdWitch">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="SecondWitch-and-ALL" source="SecondWitch" target="ALL">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="SecondWitch-and-MACBETH" source="SecondWitch" target="MACBETH">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ThirdWitch-and-ALL" source="ThirdWitch" target="ALL">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="ThirdWitch-and-MACBETH" source="ThirdWitch" target="MACBETH">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ALL-and-MALCOLM" source="ALL" target="MALCOLM">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ALL-and-LENNOX" source="ALL" target="LENNOX">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ALL-and-ROSS" source="ALL" target="ROSS">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ALL-and-MACBETH" source="ALL" target="MACBETH">
+         <data key="e1">4</data>
+      </edge>
+      <edge  id="ALL-and-BANQUO" source="ALL" target="BANQUO">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ALL-and-MACDUFF" source="ALL" target="MACDUFF">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="DUNCAN-and-MALCOLM" source="DUNCAN" target="MALCOLM">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="DUNCAN-and-BANQUO" source="DUNCAN" target="BANQUO">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MALCOLM-and-LENNOX" source="MALCOLM" target="LENNOX">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MALCOLM-and-ROSS" source="MALCOLM" target="ROSS">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="MALCOLM-and-MACBETH" source="MALCOLM" target="MACBETH">
+         <data key="e1">4</data>
+      </edge>
+      <edge  id="MALCOLM-and-BANQUO" source="MALCOLM" target="BANQUO">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MALCOLM-and-MACDUFF" source="MALCOLM" target="MACDUFF">
+         <data key="e1">6</data>
+      </edge>
+      <edge  id="MALCOLM-and-SIWARD" source="MALCOLM" target="SIWARD">
+         <data key="e1">4</data>
+      </edge>
+      <edge  id="LENNOX-and-ROSS" source="LENNOX" target="ROSS">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="LENNOX-and-MACBETH" source="LENNOX" target="MACBETH">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="LENNOX-and-LADYMACBETH" source="LENNOX" target="LADYMACBETH">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="ROSS-and-MACBETH" source="ROSS" target="MACBETH">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="ROSS-and-MACDUFF" source="ROSS" target="MACDUFF">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="ROSS-and-FirstMurderer" source="ROSS" target="FirstMurderer">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACBETH-and-BANQUO" source="MACBETH" target="BANQUO">
+         <data key="e1">5</data>
+      </edge>
+      <edge  id="MACBETH-and-LADYMACBETH" source="MACBETH" target="LADYMACBETH">
+         <data key="e1">7</data>
+      </edge>
+      <edge  id="MACBETH-and-Messenger" source="MACBETH" target="Messenger">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACBETH-and-MACDUFF" source="MACBETH" target="MACDUFF">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="MACBETH-and-FirstMurderer" source="MACBETH" target="FirstMurderer">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACBETH-and-Servant" source="MACBETH" target="Servant">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACBETH-and-SEYTON" source="MACBETH" target="SEYTON">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACBETH-and-SIWARD" source="MACBETH" target="SIWARD">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="BANQUO-and-LADYMACBETH" source="BANQUO" target="LADYMACBETH">
+         <data key="e1">3</data>
+      </edge>
+      <edge  id="BANQUO-and-FirstMurderer" source="BANQUO" target="FirstMurderer">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="BANQUO-and-SecondMurderer" source="BANQUO" target="SecondMurderer">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="LADYMACBETH-and-FirstMurderer" source="LADYMACBETH" target="FirstMurderer">
+         <data key="e1">2</data>
+      </edge>
+      <edge  id="MACDUFF-and-SIWARD" source="MACDUFF" target="SIWARD">
+         <data key="e1">4</data>
+      </edge>
+      <edge  id="FirstMurderer-and-SecondMurderer" source="FirstMurderer" target="SecondMurderer">
+         <data key="e1">2</data>
+      </edge>
+   </graph>
+</graphml>
