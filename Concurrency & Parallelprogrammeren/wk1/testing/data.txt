@@ -1,0 +1,82 @@
+Args: 1000000 and 20000
+
+Serial:
+    Took 69.1114 seconds
+    Normalized: -4.68604e-08 seconds
+    Took 78.4152 seconds
+    Normalized: -5.31687e-08 seconds
+
+-------------------------------------
+POSIX:
+Thread Amount 1:
+    Took 84.3596 seconds
+    Normalized: -5.71993e-08 seconds
+    Took 86.0596 seconds
+    Normalized: -5.83519e-08 seconds
+
+Thread Amount 2:
+    Took 40.747 seconds
+    Normalized: -2.76282e-08 seconds
+    Took 45.7111 seconds
+    Normalized: -3.0994e-08 seconds
+
+Thread Amount 4:
+    Took 22.7371 seconds
+    Normalized: -1.54167e-08 seconds
+    Took 30.4359 seconds
+    Normalized: -2.06368e-08 seconds
+
+Thread Amount 6:
+    Took 17.317 seconds
+    Normalized: -1.17417e-08 seconds
+    Took 21.7214 seconds
+    Normalized: -1.4728e-08 seconds
+
+Thread Amount 8:
+    Took 16.0096 seconds
+    Normalized: -1.08552e-08 seconds
+    Took 16.6721 seconds
+    Normalized: -1.13044e-08 seconds
+
+Thread Amount 16:
+    Took 17.6754 seconds
+    Normalized: -1.19846e-08 seconds
+    Took 20.3476 seconds
+    Normalized: -1.37965e-08 seconds
+-------------------------------------
+OMP:
+Thread Amount 1:
+    Took 72.7131 seconds
+    Normalized: -4.93025e-08 seconds
+    Took 72.8615 seconds
+    Normalized: -4.94031e-08 seconds
+
+Thread Amount 2:
+    Took 35.3778 seconds
+    Normalized: -2.39876e-08 seconds
+    Took 52.9299 seconds
+    Normalized: -3.58887e-08 seconds
+
+Thread Amount 4:
+    Took 19.0616 seconds
+    Normalized: -1.29246e-08 seconds
+    Took 19.3993 seconds
+    Normalized: -1.31535e-08 seconds
+
+Thread Amount 6:
+    Took 13.0256 seconds
+    Normalized: -8.83189e-09 seconds
+    Took 13.6348 seconds
+    Normalized: -9.24496e-09 seconds
+
+Thread Amount 8:
+    Took 11.4601 seconds
+    Normalized: -7.77039e-09 seconds
+    Took 14.3055 seconds
+    Normalized: -9.69971e-09 seconds
+
+Thread Amount 16:
+    Took 10.3623 seconds
+    Normalized: -7.02608e-09 seconds
+    Took 10.7886 seconds
+    Normalized: -7.31511e-09 seconds

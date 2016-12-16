@@ -1,0 +1,19 @@
+args was: 1 Job took 52344milliseconds
+args was: 2 Job took 56607milliseconds
+args was: 4 Job took 53953milliseconds
+args was: 8 Job took 85434milliseconds
+
+args was: 1 Job took 55787milliseconds
+args was: 2 Job took 61960milliseconds
+args was: 4 Job took 49609milliseconds
+args was: 8 Job took 51377milliseconds
+
+args was: 1 Job took 55978milliseconds
+args was: 2 Job took 49117milliseconds
+args was: 4 Job took 59681milliseconds
+args was: 8 Job took 48628milliseconds
+
+args was: 1 Job took 49681milliseconds
+args was: 2 Job took 51986milliseconds
+args was: 4 Job took 52704milliseconds
+args was: 8 Job took 55617milliseconds
