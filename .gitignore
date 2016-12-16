@@ -1,0 +1,10 @@
+*.pyc
+*.o
+*.tar.gz
+*.c~
+*.*~
+*.tar
+*.tgz
+*.jar
+*.class
+*.tbz
