@@ -1,0 +1,40 @@
+# 3.1
+
+function(doc) {
+    if (doc.placeOfPublication){
+        if(doc.creator){
+            emit(doc.placeOfPublication, doc.creator);
+        }
+        if(doc.contributor){
+            (doc.contributor || []).forEach(function(contributor) {
+			    emit(doc.placeOfPublication, contributor);
+		    });
+    	}
+    }
+}
+
+function(key, values, rereduce){
+	var tmp = [];
+	(values || []).forEach(function(val) {
+		if(tmp.indexOf(val) == -1){
+			tmp.push(val);
+		}
+	});
+	return tmp.length;
+}
+
+
+# 3.2
+function(doc) {
+    if (doc.language){
+        if(doc.creator){
+		if(typeof doc.language === 'string'){
+			emit(doc.creator, doc.language);
+		}
+		else{
+			(doc.language || []).forEach(function(lan) {
+			    emit(doc.creator, lan);
+		  	  });
+		}
+    }
+}
