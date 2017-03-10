@@ -1,0 +1,9 @@
+<resources>
+    <string name="bluetooth_service">NetCentric: Bluetooth</string>
+    <string name="bluetooth_not_supported">Bluetooth is not supported!</string>
+    <string name="button_disconnect">Disconnect</string>
+    <string name="button_connect">Connect</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_unknown">Error</string>
+    <string name="mbed_service">NetCentric: mBed</string>
+</resources>

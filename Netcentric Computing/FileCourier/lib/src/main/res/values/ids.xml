@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="template_device_name" type="id" />
+    <item name="template_device_address" type="id" />
+    <item name="template_device_button" type="id" />
+    <item name="template_filename" type="id" />
+    <item name="template_tags" type="id" />
+    <item name="downloaded" type="id" />
+    <item name="template_button" type="id" />
+    <item name="template_from" type="id" />
+    <item name="percentage" type="id" />
+    <item name="template_percentage" type="id" />
+    <item name="template_destination" type="id" />
+    <item name="template_address" type="id" />
+</resources>

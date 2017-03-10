@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="join" type="id" />
+    <item name="type" type="id" />
+    <item name="own_address" type="id" />
+    <item name="devices" type="id" />
+    <item name="ping_master" type="id" />
+    <item name="ping_slaves" type="id" />
+    <item name="template_address" type="id" />
+</resources>

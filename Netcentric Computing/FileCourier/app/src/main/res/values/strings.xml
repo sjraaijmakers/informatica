@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NetCentric App</string>
+    <string name="start_listening">Start listening</string>
+    <string name="title_activity_devices">NetCentric App: Devices</string>
+    <string name="start_discovery">Start device discovery</string>
+    <string name="stop_discovery">Cancel discovery</string>
+    <string name="title_loader">NetCentric App</string>
+    <string name="init_text">Initializing</string>
+    <string name="not_connected">Not connected</string>
+    <string name="connected">Connected</string>
+
+</resources>

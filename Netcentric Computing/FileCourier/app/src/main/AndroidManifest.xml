@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uva.nc.app"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <permission android:name="android.permission.BLUETOOTH" android:label="BLUETOOTH" />
+    <permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-feature android:name="android.hardware.usb.accessory" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="File Courier"
+        android:theme="@style/Theme.AppCompat.Light"
+        tools:replace="android:label,android:theme">
+        <activity
+            android:name=".MainActivity"
+            android:label="File Courier" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+            </intent-filter>
+            <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+                android:resource="@xml/accessory_filter" />
+        </activity>
+        <activity
+            android:name=".DevicesActivity"
+            android:label="Available devices">
+        </activity>
+        <activity
+            android:name=".NeighborsActivity"
+            android:label="Neighbors">
+        </activity>
+        <activity
+            android:name=".OwnFilesActivity"
+            android:label="Your Files">
+        </activity>
+        <activity
+            android:name=".Debug"
+            android:label="Debug Tools">
+        </activity>
+        <activity
+            android:name=".ReceivedFilesActivity"
+            android:label="Received Files">
+        </activity>
+
+        <activity
+            android:name=".SendFileActivity"
+            android:label="Send File" >
+            <intent-filter>
+                <action android:name="com.myproject.MainActivitiy" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
