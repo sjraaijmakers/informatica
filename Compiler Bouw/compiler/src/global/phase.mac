@@ -1,0 +1,145 @@
+/*
+ * Phase and subphase definitions
+ */
+
+
+#include "phase_initialise_defs.mac"
+
+/******************************************************************************/
+
+
+PHASE( ld,
+       "Loading CiviC program",
+       ALWAYS)
+
+SUBPHASE( cpp,
+          "Running C preprocessor",
+          SPdoRunPreProcessor,
+          ALWAYS,
+          ld)
+
+SUBPHASE( scp,
+          "Reading input file",
+          SPdoScanParse,
+          ALWAYS,
+          ld)
+
+ENDPHASE( ld)
+
+/******************************************************************************/
+
+PHASE( ca,
+       "Analysing code",
+       ALWAYS)
+
+SUBPHASE( ri,
+          "Renaming identifiers",
+          RIdoRename,
+          ALWAYS,
+          ca)
+
+SUBPHASE( st,
+          "Creating symbol tables",
+          STdoStart,
+          ALWAYS,
+          ca)
+
+SUBPHASE( stc,
+          "Checking symbol tables",
+          STCdoStart,
+          ALWAYS,
+          ca)
+
+SUBPHASE( tc,
+          "Running type checker",
+          TCdoTypecheck,
+          ALWAYS,
+          ca)
+
+ENDPHASE( ca)
+
+/******************************************************************************/
+
+PHASE( tc,
+       "Transform parts of code",
+       ALWAYS)
+
+SUBPHASE( gi,
+          "Creating __init() function",
+          GImain,
+          ALWAYS,
+          tc)
+
+SUBPHASE( er,
+          "Enforcing returns",
+          ERdoEnforce,
+          ALWAYS,
+          tc)
+
+SUBPHASE( bc,
+          "Converting boolean casts",
+          BCmain,
+          ALWAYS,
+          oc)
+
+ENDPHASE( tc)
+
+/******************************************************************************/
+
+
+PHASE( oc,
+       "Optimising code",
+       ALWAYS)
+
+SUBPHASE( ao,
+          "Optimising Arithmetics",
+          AOdoOptimiseArithmetics,
+          ALWAYS,
+          oc)
+
+ENDPHASE( oc)
+
+PHASE( po,
+       "Transforming code post-optimisation",
+       ALWAYS)
+
+SUBPHASE( ftw,
+          "Converting for to while loops",
+          FTWmain,
+          ALWAYS,
+          tc)
+
+ENDPHASE( oc)
+
+
+/******************************************************************************/
+
+
+PHASE( cg,
+       "Code Generation",
+       ALWAYS)
+
+SUBPHASE( prt_ast,
+          "Printing AST",
+          PRTdoPrint,
+          NEVER,
+          cg)
+
+SUBPHASE( prt,
+          "Generating byte code",
+          GBCdoGenByteCode,
+          ALWAYS,
+          cg)
+
+SUBPHASE( frtr,
+          "De-allocating syntax tree representation",
+          FREEdoFreeTree,
+          ALWAYS,
+          cg)
+
+ENDPHASE( cg)
+
+
+/******************************************************************************/
+
+#include "phase_undefine_defs.mac"

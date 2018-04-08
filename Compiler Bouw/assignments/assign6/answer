@@ -1,0 +1,24 @@
+-- 21 --
+
+    A                   B                               C           D
+factorial:
+    esr 1               ;                               2
+    iload 0             ; x                             2
+    iloadc_1            ; 1                             1
+    ile                 ; if(x <= 1)                    1
+    branch_f else       ; {                             3           9
+    iloadc_1            ;                               1
+    istore 1            ; res = 1                       2  
+    jump end            ; }                             3           17
+else:
+    iload 0             ;                               2
+    isrg                ; factorial(                    1
+    iload 0             ; x                             2
+    iloadc_1            ; 1                             1
+    isub                ; x - 1                         1
+    jsr 1 factorial     ;                               4           -26
+    imul                ; x * factorial(x - 1)          1
+    istore 1            ; x = x * factorial(x - 1)      2
+end:
+    iload 1             ; res                           2
+    ireturn             ; return res                    2

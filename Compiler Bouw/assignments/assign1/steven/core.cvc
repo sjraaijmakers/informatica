@@ -1,0 +1,52 @@
+// factorial
+export int fac(int n){
+    int tot = n;    
+    while(n > 2){
+        n = n - 1;
+        tot = tot * n;        
+    }
+    return tot;
+}
+
+// Greatest comon divider
+export int gcd(int a, int b){
+    while(a != b){
+        if(a > b){
+            a = a - b;
+        }
+        else{
+            b = b - a;
+        }
+    }
+    return a;
+}
+
+// Fibonaci
+export int fib(int n){
+    int a = 0;
+    int b = 1;
+    int tmp = 0;
+
+    for(int i = 0, n){
+        tmp = a + b;
+        a = b;
+        b = tmp;
+    }
+    return b;
+}
+
+// Prime (efficienter, increment forloop + 2, hoe?)
+export bool isprime(int n){
+    if(n <= 1){
+        return false;
+    }
+    if(n % 2 == 0 && n > 2){
+        return false;
+    }
+    for(int i = 3, n/2){
+        if(n % i == 0){
+            return false;
+        }
+    }
+    return true;
+}

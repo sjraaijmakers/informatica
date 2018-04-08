@@ -1,0 +1,10 @@
+// Should produce a context analysis error because parameter names are doubled.
+
+void kaas(int a, int a) {
+    return 6.0;
+}
+
+export int main() {
+    kaas(5, 7);
+    return 0;
+}

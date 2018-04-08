@@ -1,0 +1,66 @@
+extern void printInt( int val);
+extern void printSpaces( int num);
+extern void printNewlines( int num);
+
+// core.cvc
+extern int fac(int n);
+extern int gcd(int a, int b);
+extern int fib(int n);
+extern bool isprime(int n);
+
+// coreio.cvc
+extern void fibs(int n);
+extern void primes(int n);
+
+// aray.cvc
+extern void printIntVec(int[n] vec);
+extern void printFloatVec(float[n] vec);
+extern void printIntMat(int[m,n] mat);
+extern void printFloatMat(float[m,n] mat);
+extern void scanIntVec(int[n] vec);
+extern void scanFloatVec(float[n] vec);
+extern void scanIntMat(int[m, n] vec);
+extern void scanFloatMat(float[m, n] vec);
+extern void matMul(float[m,k] a, float[k2,n] b, float[m2,n2] c);
+
+export int main(){
+    // Core.cvc tests
+
+    /*
+    printInt(fac(3));
+    printNewlines(1);
+
+    printInt(gcd(35, 5));
+    printNewlines(1);
+
+    printInt(fib(5));
+    printNewlines(1);
+
+    printInt((int)isprime(3));
+    printNewlines(1);
+    */
+
+    // Coreio.cvc tests
+    /*
+    fibs(5);
+    primes(10);
+    */
+
+    // Aray.cvc tests
+    /*
+    float[2,3] vec = [[3.0, 4.0, 5.0], [2.0, 3.0, 0.0]];
+    float[3,2] vec2 = [[2.0, 0.0], [0.0, 0.0], [1.0, 0.0]];
+
+    float[2,2] res;
+
+    matMul(vec, vec2, res);
+
+    printFloatMat(res);
+    */
+
+    float[2, 4] scan_test;
+
+    scanFloatMat(scan_test);
+
+    return 0;
+}

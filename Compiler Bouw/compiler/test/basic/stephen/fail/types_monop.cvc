@@ -1,0 +1,9 @@
+// Should produce a type checking error because monops also have a type.
+
+#include "civic.h"
+
+export int main() {
+    int a = 0;
+    a = -5.0;
+    return 0;
+}

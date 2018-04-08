@@ -1,0 +1,16 @@
+int main() {
+    int a = -1+2+3+4-------5;
+    bool b = !!true && !!false;
+    float c = 8.0 - ---3.1415;
+    bool d = a < a && false;
+    bool e = b && b || b;
+    
+    if (true != true) {
+        a = 42;
+    } else {
+        a = 69;
+    }
+    b = false;
+    
+    return 0;
+}

@@ -1,0 +1,42 @@
+-- 1 --
+
+m, n???
+
+i_0 = 0;
+po_0 = i_0 < n;
+while (po) {
+    i_1 = phi(i_0, i_2);
+    j_0 = 0;
+    pi_0 = j_0 < m;
+    while (pi) {
+        j_1 = phi(j_0, j_2);
+        val_3 = phi(val_0, val_1, val_2);
+        if (i_1 < j_1) {
+            val_0 = val_3 + i_1;
+        }
+        else if (j_1 == i_1) {
+            val_1 = val_3 - 1;
+        }
+        else {
+            val_2 = val_3 + j_1;
+        }
+        j_2 = j_0 + 1;
+        pi_1 = j_2 < m;
+    }
+    i_2 = i_0 + 1;
+    po_1 = i_2 < n;
+}
+
+-- 2 --
+
+for(int i = 0, n){
+    for(int j = 0, min(i, n)){
+        val = val + i ;
+    }
+    if(0<=i && i <= n)
+    val = val - 1;
+    
+    for(int j = max(i + 1, 0), m) {
+        val = val + j;
+    }
+}

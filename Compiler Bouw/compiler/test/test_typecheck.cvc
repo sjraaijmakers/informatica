@@ -1,0 +1,15 @@
+int c;
+float d;
+bool a = 3.141592;
+
+int main() {
+    int a = true;
+    bool b = 42;
+    b = 69;
+    a = false;
+    
+    c = 0.56;
+    d = false;
+    
+    b = (void)b;
+}

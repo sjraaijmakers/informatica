@@ -1,0 +1,9 @@
+// Should produce a context analysis error because of a redefined variable.
+
+#include "civic.h"
+
+export int main() {
+    int a = 0;
+    float a = 5.0;
+    return 0;
+}

@@ -1,0 +1,10 @@
+// Should produce a syntax error due to operators not in the language.
+
+export int main() {
+	int a = 5;
+    int b;
+	a += 7 * (((b - b) * 56) + 5);
+    a++;
+    a--;
+	return 0;
+}

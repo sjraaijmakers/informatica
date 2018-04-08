@@ -1,0 +1,13 @@
+#define TOST 0.0
+
+extern int d;
+extern int tost();
+export int a = 7;
+float l = TOST;
+
+int foo() {
+    int g = b;
+    return tost() + b;
+}
+
+int b = 5;

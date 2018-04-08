@@ -1,0 +1,47 @@
+extern void printInt( int val);
+extern void printSpaces( int num);
+extern void printNewlines( int num);
+
+// gcd using euclids algorithm
+export int gcd(int a, int b) {
+    int temp;
+    while (b != 0) {
+        temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
+
+export int fac(int n) {
+    int res = 1;
+    for (int i = 1, n + 1) {
+        res = res * i;
+    }
+    return res;
+}
+
+export int fib(int n) {
+    int a = 1;
+    int b = 1;
+    int c = 0;
+
+    if (n == 0) {
+        return 1;
+    }
+    for (int i = 1, n) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+export bool isprime(int n) {
+    for (int i = 2, n / 2 + 1) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}

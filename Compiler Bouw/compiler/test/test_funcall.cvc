@@ -1,0 +1,9 @@
+int main(int argc) {
+    int b;
+    bool a = isEven(35, 17);
+    return 0;
+}
+
+bool isEven(int a, int b) {
+    return a % 2 == 0;
+}

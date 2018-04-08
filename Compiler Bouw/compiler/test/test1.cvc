@@ -1,0 +1,8 @@
+
+export void function(int foo, float bar) {
+    for (int i = 10, 0, 0 - (int) true) {
+        foo = i;
+    }
+}
+
+

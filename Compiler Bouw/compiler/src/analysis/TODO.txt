@@ -1,0 +1,5 @@
+- remove unnecessary imports (.h)
+- comments (remove all //)
+- code style consistency
+
+- optional further optimisations (inc, dec)

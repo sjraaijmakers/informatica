@@ -1,0 +1,1398 @@
+<!--
+ This XML file is the "command center" of your compiler.
+ Here, we define the structure of the abstract syntax tree as well as the
+ traversals to process it.
+-->
+
+<?xml-stylesheet href="ast.html.xsl" type="text/xsl" name="HTML" media="screen"?>
+<definition version="0.9" >
+
+<!--
+  =========================================================================
+-->
+
+  <attributetypes>
+    <type name="String" ctype="char*" init="NULL" copy="function" />
+    <type name="Bool" ctype="bool" init="FALSE" copy="literal" />
+    <type name="Float" ctype="float" init="0.0" copy="literal" />
+    <type name="Int" ctype="int" init="0" copy="literal" />
+    <type name="BinOp" ctype="binop" init="BO_unknown" copy="literal" />
+    <type name="MonOp" ctype="monop" init="MO_unknown" copy="literal" />
+    <type name="Link" ctype="node*" init="NULL" copy="lookup" />
+    <type name="CompilerPhase" ctype="compiler_phase_t" init="PH_initial" copy="literal" />
+    <type name="BasicType" ctype="basictype" init="BT_unknown" copy="literal" />
+  </attributetypes>
+
+<!--
+  =========================================================================
+-->
+
+  <phases>
+    <!-- id is the short id of the traversal
+         name is a descriptive name
+         default gives the default traversal mode
+           user  a user defined function
+           sons  TravSons
+           none  TravNone
+           error TravError
+         include the include file needed for the traversal
+    -->
+    <general>
+      <traversal id="PRT" name="Print Syntax Tree" default="user" include="print.h" />
+      <traversal id="COPY" name="Copy Syntax Tree" default="user" include="copy_node.h" />
+      <traversal id="FREE" name="Free Syntax Tree" default="user" include="free_node.h" />
+      <traversal id="CHK" name="Check Syntax Tree" default="user" include="check.h" />
+
+      <!-- Code analysis -->
+
+      <traversal id="ER" name="Enforce function returns" default="sons" include="enforce_return.h">
+        <travuser>
+          <node name="FunDef" />
+        </travuser>
+      </traversal>
+
+      <traversal id="ST" name="Symbol table entry" default="sons" include="symbol_table.h">
+        <travuser>
+          <node name="Program" />
+          <node name="Declarations" />
+          <node name="GlobalDec" />
+          <node name="GlobalDef" />
+          <node name="FunDef" />
+          <node name="FunDec" />
+          <node name="VarDec" />
+          <node name="Param" />
+          <node name="Id" />
+        </travuser>
+      </traversal>
+
+      <traversal id="STC" name="Symbol table check" default="sons" include="symbol_table_check.h">
+        <travuser>
+          <node name="Program" />
+          <node name="FunDef" />
+          <node name="FunCall" />
+        </travuser>
+      </traversal>
+
+      <traversal id="TC" name="Typecheck" default="sons" include="typecheck.h">
+        <travuser>
+          <node name="For" />
+          <node name="FunDef" />
+          <node name="Program" />
+          <node name="Int" />
+          <node name="Float" />
+          <node name="Bool" />
+          <node name="Id" />
+          <node name="FunCall" />
+          <node name="Cast" />
+          <node name="MonOp" />
+          <node name="BinOp" />
+          <node name="Ternary" />
+          <node name="Assign" />
+          <node name="VarDec" />
+          <node name="IfElse" />
+          <node name="While" />
+          <node name="DoWhile" />
+          <node name="For" />
+          <node name="Return" />
+        </travuser>
+      </traversal>
+
+      <traversal id="GI" name="Global Init" default="sons" include="global_init.h">
+        <travuser>
+          <node name="Program" />
+          <node name="GlobalDef" />
+        </travuser>
+      </traversal>
+
+      <traversal id="FTW" name="For to While" default="sons" include="for_to_while.h">
+        <travuser>
+          <node name="For" />
+          <node name="Statements" />
+        </travuser>
+      </traversal>
+
+      <traversal id="BC" name="Boolean Cast" default="sons" include="boolean_cast.h">
+        <travuser>
+          <node name="Cast" />
+          <node name="Id" />
+          <node name="Bool" />
+          <node name="Float" />
+          <node name="Int" />
+          <node name="BinOp" />
+        </travuser>
+      </traversal>
+
+      <!-- Optimisations -->
+
+      <traversal id="AO" name="Optimise arithmetics" default="sons" include="arithmetic_optimisation.h">
+        <travuser>
+          <node name="BinOp" />
+          <node name="MonOp" />
+          <node name="Ternary" />
+          <node name="Cast" />
+        </travuser>
+      </traversal>
+
+      <!-- BYTE -->
+      <traversal id="RI" name="Rename identifiers" default="sons" include="rename_identifiers.h">
+        <travuser>
+          <node name="Id" />
+          <node name="For" />
+          <node name="VarDec" />
+          <node name="FunDef" />
+          <node name="FunCall" />
+        </travuser>
+      </traversal>
+
+      <traversal id="GBC" name="Generate Byte Code" default="sons" include="gen_byte_code.h">
+        <travuser>
+          <node name="Block" />
+          <node name="Int" />
+          <node name="Float" />
+          <node name="Bool" />
+          <node name="Id" />
+          <!-- statements -->
+          <node name="Assign" />
+          <node name="IfElse" />
+          <node name="While" />
+          <node name="DoWhile" />
+          <node name="Return" />
+          <!-- expresions -->
+          <node name="FunCall" />
+          <node name="VarDec" />
+          <node name="BinOp" />
+          <node name="MonOp" />
+          <node name="Cast" />
+          <!-- fundef -->
+          <node name="FunDef" />
+          <node name="FunBody" />
+          <node name="Program" />
+          <node name="Statements" />
+          <node name="SymbolTableEntry" />
+          <node name="Ternary" />
+        </travuser>
+      </traversal>
+
+    </general>
+  </phases>
+
+<!-- Node sets -->
+
+  <nodesets>
+    <nodeset name="Expr">
+      <target>
+        <node name="BinOp" />
+        <node name="MonOp" />
+        <node name="Cast" />
+        <node name="Id" />
+        <node name="FunCall" />
+        <node name="Int" />
+        <node name="Float" />
+        <node name="Bool" />
+        <node name="Ternary" />
+      </target>
+    </nodeset>
+
+    <nodeset name="Statement">
+      <target>
+        <node name="Assign" />
+        <node name="FunCall" />
+        <node name="IfElse" />
+        <node name="While" />
+        <node name="DoWhile" />
+        <node name="For" />
+        <node name="Return" />
+      </target>
+    </nodeset>
+
+    <nodeset name="Declaration">
+      <target>
+        <node name="FunDec" />
+        <node name="FunDef" />
+        <node name="GlobalDec" />
+        <node name="GlobalDef" />
+      </target>
+    </nodeset>
+
+    <nodeset name="LocalFunVar">
+      <target>
+        <node name="FunDef" />
+        <node name="VarDec" />
+      </target>
+    </nodeset>
+
+  </nodesets>
+
+<!--
+  =========================================================================
+-->
+
+<syntaxtree>
+<!--
+  ===== Program Core =====
+-->
+<!--
+ Node Program:
+-->
+    <node name="Program">
+      <description>A program -- [ Declaration ]+</description>
+      <sons>
+        <son name="Declarations">
+        <description>Declarations in the program</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Declarations" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="SymbolTable">
+          <type name="Link">
+            <targets>
+              <target mandatory="no">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Declarations:
+-->
+    <node name="Declarations">
+      <description>A sequence of one or more declarations -- FunDec | FunDef | GlobalDec | GlobalDef</description>
+      <sons>
+        <son name="Declaration">
+          <description>first declaration in sequence</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Declaration" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Next">
+          <description>remaining declarations in sequence</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Declarations" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+ Node FunDec:
+-->
+    <node name="FunDec">
+      <description>Function declaration -- extern FunHeader ;</description>
+      <sons>
+        <son name="FunHeader">
+          <description>Function header</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="FunHeader" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+    </node>
+<!--
+ Node FunDef:
+-->
+    <node name="FunDef">
+      <description>Function definition -- [ export ] FunHeader { FunBody }</description>
+      <sons>
+        <son name="FunHeader">
+          <description>Function header</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="FunHeader" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="FunBody">
+          <description>Function body</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="FunBody" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Next">
+          <description>Next localfunvar</description>
+          <targets>
+            <target mandatory="no">
+              <set name="LocalFunVar" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Export">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="SymbolTable">
+          <type name="Link">
+            <targets>
+              <target mandatory="no">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node FunHeader:
+-->
+    <node name="FunHeader">
+      <description>Function header -- RetType Id ( [ Param [ , Param ] ]* )</description>
+      <sons>
+        <son name="Params">
+          <description>Function parameters</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Param" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="RetType">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node GlobalDec:
+-->
+    <node name="GlobalDec">
+      <description>Global declaration -- extern Type Id ;</description>
+      <sons>
+      </sons>
+      <attributes>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node GlobalDef:
+-->
+    <node name="GlobalDef">
+      <description>Global definition -- [ export ] Type Id [ = Expr ] ;</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Export">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Param:
+-->
+    <node name="Param">
+      <description>Parameter -- Type Id</description>
+      <sons>
+        <son name="Next">
+          <description>Remaining parameters in sequence</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Param" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node block:
+-->
+    <node name="Block">
+      <description>Parameter -- Type Id</description>
+      <sons>
+        <son name="Statements">
+          <description>Param Id</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Statements" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+    </node>
+<!--
+  ===== Statement Language =====
+-->
+<!--
+ Node FunBody:
+-->
+    <node name="FunBody">
+      <description>Function body -- [ VarDec ]* [ FunDef ]* [ Statement ]* </description>
+      <sons>
+        <son name="LocalFunVars">
+          <description>Vardecs and fundefs in the function body</description>
+          <targets>
+            <target mandatory="no">
+              <set name="LocalFunVar" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Statements">
+          <description>Statements in the function body</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Statements" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+    </node>
+<!--
+ Node VarDec:
+-->
+    <node name="VarDec">
+      <description>Variable declaration -- Type Id [ = Expr ] ;</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Next">
+          <description>Next localfunvar</description>
+          <targets>
+            <target mandatory="no">
+              <set name="LocalFunVar" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Statements:
+-->
+     <node name="Statements">
+      <description>A sequence of one or more statements -- Assign | FunCall | If | While | DoWhile | For | Return</description>
+      <sons>
+        <son name="Statement">
+          <description>First statement in sequence</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Statement" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Next">
+          <description>Remaining statements in sequence</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Statements" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+Node Assign:
+-->
+    <node name="Assign">
+      <description>Assignment -- Id = Expr ;</description>
+      <sons>
+        <son name="Expr">
+          <description>Right hand side expression</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Id">
+          <description>ID</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Id" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+Node If:
+-->
+    <node name="IfElse">
+      <description>If statement -- if ( Expr ) Block [ else Block ]</description>
+      <sons>
+        <son name="IfExpr">
+          <description>Expression to be evaluated by if statement</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="IfBlock">
+          <description>Block to be executed when IfExpr evaluates to true</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Block" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="ElseBlock">
+          <description>Block to be executed when IfExpr evaluates to false</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Block" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+Node While:
+-->
+    <node name="While">
+      <description>While loop -- while ( Expr ) Block</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression to be evaluated every loop cycle</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Block">
+          <description>Block to be executed when WhileExpr evaluates to true</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Block" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+Node DoWhile:
+-->
+    <node name="DoWhile">
+      <description>While loop -- do Block while ( Expr ) ;</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression to be evaluated every loop cycle</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Block">
+          <description>Block to be executed when WhileExpr evaluates to true</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Block" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+<!--
+Node For:
+-->
+    <node name="For">
+      <description>Counted loop -- for ( int Id = Expr, Expr [ , Expr] ) Block</description>
+      <sons>
+        <son name="StartExpr">
+          <description>Loop counter start</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="EndExpr">
+          <description>Loop counter end</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="StepExpr">
+          <description>Loop counter step</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Block">
+          <description>Block to be executed while the counter is below the max</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="Block" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="CounterName">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+Node Return:
+-->
+    <node name="Return">
+      <description>Return statement -- return [ Expr ] ;</description>
+      <sons>
+        <son name="RetValue">
+          <description>Expression to be returned</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+    </node>
+<!--
+Node Expressions:
+-->
+    <node name="Exprs">
+      <description>A sequence of expressions -- Expr | BinOp | MonOp | Cast | FunCall | Var | Const</description>
+      <sons>
+        <son name="Expr">
+          <description>First expression in the sequence</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Next">
+          <description>Remaining expressions in the sequence</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Exprs" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+      </attributes>
+    </node>
+
+<!--
+ Node BinOp:
+-->
+    <node name="BinOp">
+      <description>Binary operator -- Exrp BinOp Expr</description>
+      <sons>
+        <son name="Left">
+          <description>Left operand expression</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Right">
+          <description>Right operand expression</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <description>Operator type</description>
+        <attribute name="Op">
+          <type name="BinOp">
+            <targets>
+              <target mandatory="yes">
+                <any />
+                <phases>
+                  <all />
+                </phases>
+              </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node MonOp:
+-->
+    <node name="MonOp">
+      <description>Unary operator -- MonOp Expr</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Op">
+          <type name="MonOp">
+            <targets>
+              <target mandatory="yes">
+                <any />
+                <phases>
+                  <all />
+                </phases>
+              </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Cast:
+-->
+    <node name="Cast">
+      <description>Cast operator -- ( BasicType ) Expr</description>
+      <sons>
+        <son name="Expr">
+          <description>Expression</description>
+          <targets>
+            <target mandatory="yes">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                <any />
+                <phases>
+                  <all />
+                </phases>
+              </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node FunCall:
+-->
+    <node name="FunCall">
+      <description>Function call -- Id ( [ Expr [ , Expr]* ] )</description>
+      <sons>
+        <son name="Params">
+          <description>Function parameters</description>
+          <targets>
+            <target mandatory="no">
+              <node name="Exprs" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Id:
+-->
+    <node name="Id">
+      <description>Identifier expression</description>
+      <sons>
+      </sons>
+      <attributes>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Symboltable">
+          <type name="Link">
+            <targets>
+              <target mandatory="no">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Int:
+-->
+   <node name="Int">
+      <description>Integer constant</description>
+      <sons>
+      </sons>
+      <attributes>
+        <attribute name="Value">
+          <type name="Int">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Float:
+-->
+    <node name="Float">
+      <description>Floating point constant</description>
+      <sons>
+      </sons>
+      <attributes>
+        <attribute name="Value">
+          <type name="Float">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+             </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+<!--
+ Node Ternary:
+-->
+    <node name="Ternary">
+      <description>Ternary operator --- pred?then:else</description>
+      <sons>
+        <son name="Pred">
+          <description>Expression to be returned</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Then">
+          <description>Expression to be returned</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+        <son name="Else">
+          <description>Expression to be returned</description>
+          <targets>
+            <target mandatory="no">
+              <set name="Expr" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+    </node>
+
+<!--
+ Node Bool:
+-->
+    <node name="Bool">
+      <description>Boolean constant (true/false)</description>
+      <sons>
+      </sons>
+      <attributes>
+        <attribute name="Value">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                 <phases>
+                  <all />
+                </phases>
+              </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+
+<!--
+  ===== Other =====
+-->
+
+<!--
+ Node SymbolTable:
+-->
+    <node name="SymbolTable">
+      <description>Symbol table entry</description>
+      <sons>
+        <son name="Entries">
+          <description>ST body</description>
+          <targets>
+            <target mandatory="yes">
+              <node name="SymbolTableEntry" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Parent">
+            <type name="Link">
+              <targets>
+                <target mandatory="yes">
+                  <phases>
+                    <all />
+                  </phases>
+                </target>
+              </targets>
+            </type>
+          </attribute>
+      </attributes>
+    </node>
+
+    <node name="SymbolTableEntry">
+      <description>Symbol table entries</description>
+      <sons>
+        <son name="Next">
+          <description>ST body</description>
+          <targets>
+            <target mandatory="no">
+              <node name="SymbolTableEntry" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="Name">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Type">
+          <type name="BasicType">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Params">
+          <type name="Link">
+            <targets>
+              <target mandatory="no">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="IsFunction">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="import">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="Export">
+          <type name="Bool">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+    </node>
+
+<!--
+ Node Error:
+-->
+    <node name="Error">
+      <description>Internal Error representation constructor</description>
+      <sons>
+        <son name="Next">
+          <targets>
+            <target mandatory="no" >
+              <node name="Error" />
+                <phases>
+                  <all />
+                </phases>
+             </target>
+          </targets>
+        </son>
+      </sons>
+      <attributes>
+        <attribute name="message">
+          <type name="String">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+        <attribute name="anyphase">
+          <type name="CompilerPhase">
+            <targets>
+              <target mandatory="yes">
+                <phases>
+                  <all />
+                </phases>
+               </target>
+            </targets>
+          </type>
+        </attribute>
+      </attributes>
+      <flags></flags>
+    </node>
+
+  </syntaxtree>
+
+</definition>
+

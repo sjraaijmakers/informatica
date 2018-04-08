@@ -1,0 +1,53 @@
+/*
+ * A test file containing all basic functionality of CiviC
+ */
+
+extern bool isprime_(int n);
+extern int rand_();
+
+extern float pi_;
+extern bool f_;
+
+//======================================================//
+
+export float pi = 3.141592;
+bool f;
+
+export bool isprime(int n) {
+    int a = 10;
+    if (n < 2) return false;
+
+    for (int i = 2, n) {
+        if (n % i == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    while (a == 2) {
+        do {
+            a = a + 1;
+        } while ((bool)rand());
+    }
+    
+    n = (int)10.0;
+    
+    return !true;
+}
+
+int rand() {
+    bool arb() {
+        return false;
+    }
+    for (int j = 0, 4)
+        for (int i = 5, 9, 2)
+            return -i;
+    if (arb()) {
+        return 69;
+    }
+    return 42;
+}
+
+void dummy() {}
+// comment

@@ -1,0 +1,29 @@
+// int d = 2;
+void foo() {
+    void bar() {
+        void foo() {
+            bar();
+            foo();
+            baz();
+        }
+        void baz() {
+            void foo() {
+                baz();
+                bar();
+                foo();
+            }
+            foo();
+        }
+    }
+    void foo() {
+        foo();
+        bar();
+    }
+}
+
+void bar() {
+    void foo() {
+        bar();
+        foo();
+    }
+}

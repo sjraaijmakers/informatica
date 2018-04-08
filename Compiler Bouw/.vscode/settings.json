@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.cvc": "c",
+        "str.h": "c",
+        "free.h": "c",
+        "memory.h": "c",
+        "dbug.h": "c",
+        "symbol_table.h": "c",
+        "types.h": "c",
+        "traverse.h": "c",
+        "tree_basic.h": "c",
+        "types_nodetype.h": "c",
+        "general_functions.h": "c"
+    }
+}

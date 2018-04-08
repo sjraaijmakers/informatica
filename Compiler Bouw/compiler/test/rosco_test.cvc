@@ -1,0 +1,44 @@
+
+extern int globaldec;
+int globaldef = 4;
+export int globaldef2 = 7;
+extern int fundec(int a, int b);
+
+export void function(int foo, float bar) {
+    int a = 4;
+    int b = 5;
+    int c = (int) 10.0;
+    int d = globaldef + globaldec;
+
+    int localfun(int a) {
+        return a;
+    }
+
+    d = 5 + 5 + 5;
+
+    if (!(d > 5)) {
+        if (a > 6 + 4 - 6) {
+            c = 6;
+            c = 7;
+        } else {
+            for (int k = 1, 70) {
+                c = k;
+                function(5 + 8, (float) fundec(8, 4 - 4) + (float) true);
+                localfun(k);
+                while (false == (bool) 1)
+                    tost();
+            }
+        }
+        do {
+            tost();
+        } while (!tost());
+        return;
+    }
+}
+
+bool tost() {
+    int a = 0;
+    a = 1 + a;
+    globaldef = globaldef + 1;
+    return globaldef > 10;
+}

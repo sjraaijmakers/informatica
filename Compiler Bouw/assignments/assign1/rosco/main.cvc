@@ -1,0 +1,81 @@
+extern void printInt( int val);
+extern void printSpaces( int num);
+extern void printNewlines( int num);
+
+extern void fibs(int n);
+extern void primes(int n);
+extern int fac(int n);
+extern int gcd(int a, int b);
+extern void printIntVec(int[n] vec);
+extern void printFloatVec(float[n] vec);
+extern void printIntMat(int [m, n] mat);
+extern void printFloatMat(float [m, n] mat);
+extern void scanIntVec(int[n] vec);
+extern void scanFloatVec(float[n] vec);
+extern void scanIntMat(int[m, n] mat);
+extern void scanFloatMat(float[m, n] mat);
+extern void matMul(float[m, k] a, float[k, n] b, float[m, n] c);
+
+export int main() {
+    int[5] vec = [1, 2, 5, 10, 2];
+    float[5] vecf = [1.1, 2.3, 5.2, 10.0, 2.9];
+
+    int[3, 3] mat = [[1, 2, 3], [2, 3, 6], [3, 6, 9]];
+    float[3, 3] matf = [[1.5, 2.5, 3.5], [2.3, 3.2, 6.1], [3.7, 6.8, 9.9]];
+
+    int[2] scanvec;
+    float[2] scanvecf;
+
+    int[2, 2] scanmat;
+    float[2, 2] scanmatf;
+
+    float[2, 2] mulmat1 = [[1.0, 2.0], [2.0, 4.0]];
+    float[2, 3] mulmat2 = [[1.0, 2.0, 3.0], [2.0, 4.0, 6.0]];
+    float[2, 3] mulmatres;
+
+    printInt(gcd(12, 16));
+    printNewlines(2);
+
+    printInt(fac(10));
+    printNewlines(2);
+
+    fibs(20);
+    printNewlines(2);
+
+    primes(20);
+    printNewlines(2);
+
+    printIntVec(vec);
+    printNewlines(2);
+
+    printFloatVec(vecf);
+    printNewlines(2);
+
+    printIntMat(mat);
+    printNewlines(2);
+
+    printFloatMat(matf);
+    printNewlines(2);
+
+    scanIntVec(scanvec);
+    printIntVec(scanvec);
+    printNewlines(2);
+
+    scanFloatVec(scanvecf);
+    printFloatVec(scanvecf);
+    printNewlines(2);
+
+    scanIntMat(scanmat);
+    printIntMat(scanmat);
+    printNewlines(2);
+
+    scanFloatMat(scanmatf);
+    printFloatMat(scanmatf);
+    printNewlines(2);
+
+    matMul(mulmat1, mulmat2, mulmatres);
+    printFloatMat(mulmatres);
+    printNewlines(2);
+
+    return 0;
+}
