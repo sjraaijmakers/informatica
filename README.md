@@ -1,1 +1,1 @@
-For education purpose only. Not every assignment is correct/finished/made.
+For educational purposes only. Not every assignment is correct/finished/made.
